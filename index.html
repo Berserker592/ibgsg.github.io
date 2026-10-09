@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SongWriter PRO | I.B.G.S.G</title>
+    <title>SongWriter PRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;600;700;900&display=swap');
         
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; margin: 0; overflow: hidden; height: 100vh; }
-        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         
-        textarea { font-family: 'JetBrains Mono', monospace; resize: none; background: #1e293b; border: 1px solid #334155; color: #f1f5f9; width: 100%; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; }
+        textarea { 
+            font-family: 'JetBrains Mono', monospace; 
+            resize: none; 
+            background: #1e293b; 
+            border: 1px solid #334155; 
+            color: #f1f5f9; 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            outline: none; 
+            min-height: 90px;
+            line-height: 1.5;
+        }
+        textarea:focus { border-color: #6366f1; }
         
         .acorde-final { color: #2563eb !important; font-weight: 900 !important; font-family: 'JetBrains Mono', monospace !important; }
         .tag-seccion { color: #f97316 !important; font-weight: 900 !important; font-size: 0.75em; display: block; letter-spacing: 1px; margin-bottom: 2px; text-transform: uppercase; }
 
-        #app-name-input { background: transparent; border: none; color: #818cf8; font-weight: 800; outline: none; width: 180px; }
-        @media (max-width: 768px) { .view-panel { display: none; } .view-panel.active { display: block; } }
-        .drag-handle { cursor: move; color: #475569; padding-right: 8px; }
+        #app-name-input { background: transparent; border: none; color: #818cf8; font-weight: 800; outline: none; width: 160px; }
+        
+        @media (max-width: 768px) { 
+            .view-panel { display: none; } 
+            .view-panel.active { display: block; } 
+        }
+        
+        .drag-handle { cursor: move; color: #64748b; padding-right: 8px; user-select: none; }
+        .drag-handle:hover { color: #94a3b8; }
 
         input[type=range] { width: 100%; cursor: pointer; accent-color: #6366f1; }
         .dos-columnas { column-count: 2; column-gap: 30px; column-rule: 1px solid #eee; }
@@ -30,113 +50,197 @@
         #render-target { background: white !important; color: #000 !important; font-family: 'JetBrains Mono', monospace !important; }
         #render-target p { font-family: 'JetBrains Mono', monospace !important; }
 
-        .btn-transport { background: #1e293b; border: 1px solid #334155; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; transition: all 0.2s; color: #94a3b8; }
+        .btn-transport { 
+            background: #1e293b; border: 1px solid #334155; padding: 5px 10px; 
+            border-radius: 6px; font-size: 11px; font-weight: 700; 
+            transition: all 0.15s; color: #94a3b8; 
+        }
         .btn-transport:hover { background: #334155; color: #818cf8; border-color: #818cf8; }
+        .btn-transport:active { transform: scale(0.95); }
+
+        .sec-btn {
+            py-2.5 rounded-lg text-[10px] font-bold transition active:scale-95;
+        }
     </style>
 </head>
 <body class="flex flex-col">
 
-<header class="bg-slate-900 border-b border-slate-800 p-3 flex justify-between items-center z-50 shadow-lg">
-    <div class="flex items-center gap-1">
-        <span>🎵</span>
-        <input id="app-name-input" type="text" placeholder="App Name" spellcheck="false" oninput="App.saveAppName(this.value)">
+<!-- HEADER -->
+<header class="bg-slate-900 border-b border-slate-800 px-3 py-2.5 flex justify-between items-center z-50 shadow-lg">
+    <div class="flex items-center gap-1.5">
+        <span class="text-lg">🎵</span>
+        <input id="app-name-input" type="text" placeholder="SongWriter PRO" spellcheck="false" oninput="App.saveAppName(this.value)">
     </div>
-    <div class="flex gap-2">
-        <button onclick="App.guardar()" class="px-4 py-1.5 rounded bg-indigo-600 text-[10px] font-bold active:scale-95 transition">GUARDAR</button>
-        <button onclick="App.exportarPDF()" class="px-4 py-1.5 rounded bg-slate-700 text-[10px] font-bold active:scale-95 transition">VISTA IMPRESIÓN</button>
-        <button onclick="App.descargarPDFDirecto()" class="px-4 py-1.5 rounded bg-rose-600 text-[10px] font-bold active:scale-95 transition">DESCARGAR PDF</button>
-        <button onclick="App.toggleBib(true)" class="p-1.5 rounded bg-slate-800 text-xs shadow-inner">📚</button>
+    <div class="flex gap-1.5 items-center">
+        <button onclick="App.guardar()" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-[10px] font-bold active:scale-95 transition hover:bg-indigo-500">
+            GUARDAR
+        </button>
+        <button onclick="App.exportarPDF()" class="px-3 py-1.5 rounded-lg bg-slate-700 text-[10px] font-bold active:scale-95 transition hidden sm:inline-block">
+            IMPRIMIR
+        </button>
+        <button onclick="App.descargarPDFDirecto()" class="px-3 py-1.5 rounded-lg bg-rose-600 text-[10px] font-bold active:scale-95 transition">
+            PDF
+        </button>
+        <button onclick="App.toggleBib(true)" class="p-1.5 rounded-lg bg-slate-800 text-sm hover:bg-slate-700 transition">
+            📚
+        </button>
     </div>
 </header>
 
 <main class="flex flex-1 overflow-hidden">
-    <section id="panel-editor" class="view-panel active w-full md:w-1/2 p-4 overflow-y-auto custom-scroll border-r border-slate-900">
+    <!-- PANEL EDITOR -->
+    <section id="panel-editor" class="view-panel active w-full md:w-1/2 p-3 md:p-4 overflow-y-auto custom-scroll border-r border-slate-900">
         <div class="max-w-xl mx-auto space-y-4">
-            <input id="titulo" type="text" placeholder="Título de la canción..." class="w-full bg-transparent text-xl font-extrabold border-b border-slate-800 outline-none pb-1 focus:border-indigo-500">
             
+            <!-- Título -->
+            <input id="titulo" type="text" placeholder="Título de la canción..." 
+                   class="w-full bg-transparent text-xl md:text-2xl font-extrabold border-b border-slate-800 outline-none pb-1.5 focus:border-indigo-500 transition">
+            
+            <!-- Tono + BPM + Transposición -->
             <div class="grid grid-cols-2 gap-3">
-                <div class="flex flex-col gap-1">
-                    <input id="tono" placeholder="Tono (Ej: G#m)" class="p-2 rounded bg-slate-800 border border-slate-700 text-sm outline-none">
+                <div class="flex flex-col gap-1.5">
+                    <input id="tono" placeholder="Tono (Ej: G#m)" 
+                           class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-indigo-500">
                     <div class="flex gap-1">
-                        <button onclick="App.transportar(-1)" class="btn-transport">-1</button>
-                        <button onclick="App.transportar(-0.5)" class="btn-transport">-1/2</button>
-                        <button onclick="App.transportar(0.5)" class="btn-transport">+1/2</button>
-                        <button onclick="App.transportar(1)" class="btn-transport">+1</button>
+                        <button onclick="App.transportar(-1)" class="btn-transport flex-1">-1</button>
+                        <button onclick="App.transportar(-0.5)" class="btn-transport flex-1">-½</button>
+                        <button onclick="App.transportar(0.5)" class="btn-transport flex-1">+½</button>
+                        <button onclick="App.transportar(1)" class="btn-transport flex-1">+1</button>
                     </div>
                 </div>
-                <input id="bpm" type="number" placeholder="BPM" class="p-2 h-10 rounded bg-slate-800 border border-slate-700 text-sm outline-none">
+                <input id="bpm" type="number" placeholder="BPM" 
+                       class="p-2.5 h-[42px] rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-indigo-500">
             </div>
 
-            <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700 space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase">Tamaño Letra: <span id="val-size" class="text-indigo-400">16px</span></span>
+            <!-- Controles de visualización -->
+            <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-3">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase">
+                        Tamaño: <span id="val-size" class="text-indigo-400">16px</span>
+                    </span>
                     <div class="flex gap-4">
                         <label class="flex items-center cursor-pointer gap-2">
                             <span class="text-[10px] font-bold text-indigo-400 uppercase">Ver Notas</span>
                             <input type="checkbox" id="check-notas" checked onchange="App.render()" class="w-4 h-4 accent-indigo-500">
                         </label>
                         <label class="flex items-center cursor-pointer gap-2">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase">2 Columnas</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">2 Cols</span>
                             <input type="checkbox" id="check-cols" onchange="App.render()" class="w-4 h-4 accent-indigo-500">
                         </label>
                     </div>
                 </div>
-                <input type="range" id="font-size-range" min="10" max="28" value="16" oninput="App.updateFontSize(this.value)">
+                <input type="range" id="font-size-range" min="11" max="28" value="16" oninput="App.updateFontSize(this.value)">
             </div>
 
-            <div id="lista-secciones" class="space-y-4 pb-32"></div>
+            <!-- Lista de secciones -->
+            <div id="lista-secciones" class="space-y-3 pb-36"></div>
         </div>
         
-        <div class="fixed bottom-6 left-4 right-4 md:right-auto md:w-[45%] grid grid-cols-4 gap-2 z-[60] bg-slate-900 p-2 rounded-xl border border-slate-700 shadow-2xl">
-            <button onclick="App.addSec('estrofa')" class="py-2 rounded bg-indigo-500/20 text-[9px] font-bold hover:bg-indigo-500/40">+ ESTROFA</button>
-            <button onclick="App.addSec('precoro')" class="py-2 rounded bg-purple-500/20 text-[9px] font-bold hover:bg-purple-500/40">+ PRE-CORO</button>
-            <button onclick="App.addSec('coro')" class="py-2 rounded bg-emerald-500/20 text-[9px] font-bold hover:bg-emerald-500/40">+ CORO</button>
-            <button onclick="App.addSec('puente')" class="py-2 rounded bg-amber-500/20 text-[9px] font-bold hover:bg-amber-500/40">+ PUENTE</button>
+        <!-- Botones fijos de secciones -->
+        <div class="fixed bottom-4 left-3 right-3 md:right-auto md:w-[46%] grid grid-cols-4 gap-1.5 z-[60] bg-slate-900/95 backdrop-blur p-2 rounded-2xl border border-slate-700 shadow-2xl">
+            <button onclick="App.addSec('intro')" class="py-2.5 rounded-lg bg-sky-500/20 text-[9px] font-bold hover:bg-sky-500/40 text-sky-300">+ INTRO</button>
+            <button onclick="App.addSec('estrofa')" class="py-2.5 rounded-lg bg-indigo-500/20 text-[9px] font-bold hover:bg-indigo-500/40 text-indigo-300">+ ESTROFA</button>
+            <button onclick="App.addSec('precoro')" class="py-2.5 rounded-lg bg-purple-500/20 text-[9px] font-bold hover:bg-purple-500/40 text-purple-300">+ PRE</button>
+            <button onclick="App.addSec('coro')" class="py-2.5 rounded-lg bg-emerald-500/20 text-[9px] font-bold hover:bg-emerald-500/40 text-emerald-300">+ CORO</button>
+            <button onclick="App.addSec('puente')" class="py-2.5 rounded-lg bg-amber-500/20 text-[9px] font-bold hover:bg-amber-500/40 text-amber-300">+ PUENTE</button>
+            <button onclick="App.addSec('instrumental')" class="py-2.5 rounded-lg bg-rose-500/20 text-[9px] font-bold hover:bg-rose-500/40 text-rose-300">+ INSTR</button>
+            <button onclick="App.addSec('final')" class="py-2.5 rounded-lg bg-slate-500/20 text-[9px] font-bold hover:bg-slate-500/40 text-slate-300">+ FINAL</button>
+            <button onclick="App.clearAll()" class="py-2.5 rounded-lg bg-red-900/40 text-[9px] font-bold hover:bg-red-900/60 text-red-300">LIMPIAR</button>
         </div>
     </section>
 
-    <section id="panel-previa" class="view-panel w-full md:w-1/2 p-4 md:p-6 bg-slate-950 overflow-y-auto custom-scroll">
-        <div class="mx-auto bg-white text-slate-900 p-6 md:p-10 shadow-2xl min-h-full rounded-sm max-w-[700px]">
+    <!-- PANEL PREVIA -->
+    <section id="panel-previa" class="view-panel w-full md:w-1/2 p-3 md:p-6 bg-slate-950 overflow-y-auto custom-scroll">
+        <div class="mx-auto bg-white text-slate-900 p-5 md:p-10 shadow-2xl min-h-full rounded-sm max-w-[720px]">
             <div id="render-target"></div>
         </div>
     </section>
 </main>
 
+<!-- MODAL BIBLIOTECA -->
 <div id="modal-bib" class="fixed inset-0 hidden z-[100] p-4 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-    <div class="bg-slate-900 w-full max-w-sm rounded-xl border border-slate-800 p-4 shadow-2xl">
-        <div class="flex justify-between items-center mb-4 text-indigo-400 font-bold">
-            <span>BIBLIOTECA</span>
-            <div class="flex gap-2">
-                <button onclick="document.getElementById('file-import').click()" class="text-[9px] bg-slate-800 px-2 py-1 rounded border border-slate-700">IMPORTAR</button>
-                <button onclick="App.exportarDB()" class="text-[9px] bg-indigo-900 px-2 py-1 rounded border border-indigo-700">BACKUP</button>
-                <button onclick="App.toggleBib(false)" class="text-slate-500 text-xl px-1">✕</button>
+    <div class="bg-slate-900 w-full max-w-md rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
+        <div class="flex justify-between items-center p-4 border-b border-slate-800">
+            <span class="text-indigo-400 font-bold text-sm tracking-wide">📚 BIBLIOTECA</span>
+            <div class="flex gap-2 items-center">
+                <button onclick="App.cargarDesdeRepo()" class="text-[10px] bg-emerald-900/60 hover:bg-emerald-800 px-2.5 py-1 rounded-lg border border-emerald-700/50 font-bold">
+                    🔄 REPO
+                </button>
+                <button onclick="document.getElementById('file-import').click()" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-600 font-bold">
+                    IMPORTAR
+                </button>
+                <button onclick="App.exportarDB()" class="text-[10px] bg-indigo-900/60 hover:bg-indigo-800 px-2.5 py-1 rounded-lg border border-indigo-700/50 font-bold">
+                    BACKUP
+                </button>
+                <button onclick="App.toggleBib(false)" class="text-slate-400 hover:text-white text-xl leading-none px-1">✕</button>
             </div>
         </div>
+        
+        <!-- Búsqueda -->
+        <div class="p-3 border-b border-slate-800">
+            <input id="search-bib" type="text" placeholder="Buscar canción..." 
+                   oninput="App.filtrarBib(this.value)"
+                   class="w-full p-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-indigo-500">
+        </div>
+        
         <input type="file" id="file-import" class="hidden" accept=".json" onchange="App.importarDB(this)">
-        <div id="lista-bib" class="space-y-2 max-h-[50vh] overflow-y-auto custom-scroll"></div>
+        
+        <div id="lista-bib" class="space-y-1.5 max-h-[55vh] overflow-y-auto custom-scroll p-3"></div>
+        
+        <div class="p-3 border-t border-slate-800 text-[10px] text-slate-500 text-center">
+            Las canciones se guardan en este navegador. Usa BACKUP para compartir.
+        </div>
     </div>
 </div>
 
-<div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-indigo-600 text-white font-bold text-xs opacity-0 transition-opacity z-[200]"></div>
+<!-- TOAST -->
+<div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full bg-indigo-600 text-white font-bold text-xs opacity-0 transition-all duration-300 z-[200] pointer-events-none shadow-lg"></div>
 
 <script>
 const App = {
-    configs: { 'estrofa': 'border-indigo-500', 'precoro': 'border-purple-500', 'coro': 'border-emerald-500', 'puente': 'border-amber-500' },
+    // Configuración de secciones
+    configs: {
+        'intro':        'border-sky-500',
+        'estrofa':      'border-indigo-500',
+        'precoro':      'border-purple-500',
+        'coro':         'border-emerald-500',
+        'puente':       'border-amber-500',
+        'instrumental': 'border-rose-500',
+        'final':        'border-slate-400'
+    },
+    
     currentFontSize: 16,
     notasEscala: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+    churchName: 'Ministerio de Alabanza "Iglesia Bíblica Gracia sobre Gracia"',
 
     init() {
-        document.getElementById('app-name-input').value = localStorage.getItem('sw_app_name') || 'I.B.G.S.G';
+        // Nombre de la app
+        document.getElementById('app-name-input').value = localStorage.getItem('sw_app_name') || 'SongWriter PRO';
+        
         this.elLista = document.getElementById('lista-secciones');
-        Sortable.create(this.elLista, { handle: '.drag-handle', animation: 150, onEnd: () => this.render() });
+        
+        // Drag & drop
+        Sortable.create(this.elLista, { 
+            handle: '.drag-handle', 
+            animation: 150, 
+            onEnd: () => this.render() 
+        });
+        
+        // Listeners de campos
         ['titulo', 'tono', 'bpm'].forEach(id => {
             const el = document.getElementById(id);
-            if(el) el.addEventListener('input', () => this.render());
+            if (el) el.addEventListener('input', () => this.render());
         });
+
+        // Intentar cargar songs.json del repo automáticamente
+        this.cargarDesdeRepo(true); // silent = true
+        
         this.render();
     },
 
-    saveAppName(val) { localStorage.setItem('sw_app_name', val); },
+    saveAppName(val) { 
+        localStorage.setItem('sw_app_name', val); 
+    },
 
     updateFontSize(val) {
         this.currentFontSize = val;
@@ -146,14 +250,31 @@ const App = {
 
     addSec(tipo, txt = "") {
         const div = document.createElement('div');
-        div.className = "bg-slate-800/40 p-3 rounded-lg border-l-4 " + (this.configs[tipo] || 'border-slate-500');
+        div.className = `bg-slate-800/40 p-3 rounded-xl border-l-4 ${this.configs[tipo] || 'border-slate-500'}`;
         div.dataset.tipo = tipo;
-        div.innerHTML = `<div class="flex justify-between items-center mb-1">
-            <span class="drag-handle text-[10px] font-bold text-slate-500 uppercase">⠿ ${tipo}</span>
-            <button onclick="this.parentNode.parentNode.remove();App.render()" class="text-slate-500 hover:text-rose-500">✕</button>
-        </div><textarea oninput="App.render()" placeholder="Escribe aquí...">${txt}</textarea>`;
+        
+        div.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+                <span class="drag-handle text-[10px] font-bold text-slate-500 uppercase tracking-wider">⠿ ${tipo}</span>
+                <button onclick="this.closest('[data-tipo]').remove(); App.render()" 
+                        class="text-slate-500 hover:text-rose-400 transition text-sm px-1">✕</button>
+            </div>
+            <textarea oninput="App.render()" placeholder="Escribe letra y acordes aquí...&#10;Ejemplo: [G]Jesús es el [C]camino">${txt}</textarea>
+        `;
+        
         this.elLista.appendChild(div);
         this.render();
+        
+        // Focus en el nuevo textarea
+        setTimeout(() => div.querySelector('textarea').focus(), 50);
+    },
+
+    clearAll() {
+        if (confirm('¿Borrar todas las secciones de esta canción?')) {
+            this.elLista.innerHTML = '';
+            this.render();
+            this.notify('Secciones eliminadas');
+        }
     },
 
     transportar(pasos) {
@@ -163,24 +284,33 @@ const App = {
                 return `[${this.cambiarNota(notaCompleta, pasos)}]`;
             });
         });
+        
         const tonoInput = document.getElementById('tono');
-        if(tonoInput.value) tonoInput.value = this.cambiarNota(tonoInput.value, pasos);
+        if (tonoInput.value) {
+            tonoInput.value = this.cambiarNota(tonoInput.value, pasos);
+        }
+        
         this.render();
-        this.notify(`Transportado ${pasos > 0 ? '+'+pasos : pasos} tono(s)`);
+        this.notify(`Transportado ${pasos > 0 ? '+' + pasos : pasos} tono(s)`);
     },
 
     cambiarNota(notaStr, pasos) {
         const regex = /^([A-G][#b]?)(.*)/;
         const match = notaStr.match(regex);
         if (!match) return notaStr;
+        
         let raiz = match[1];
         let sufijo = match[2];
+        
         const mapaBemoles = { 'Db':'C#', 'Eb':'D#', 'Gb':'F#', 'Ab':'G#', 'Bb':'A#' };
         if (mapaBemoles[raiz]) raiz = mapaBemoles[raiz];
+        
         let index = this.notasEscala.indexOf(raiz);
         if (index === -1) return notaStr;
+        
         let nuevoIndex = (index + (pasos * 2)) % 12;
         while (nuevoIndex < 0) nuevoIndex += 12;
+        
         return this.notasEscala[nuevoIndex] + sufijo;
     },
 
@@ -192,11 +322,21 @@ const App = {
         const mostrarNotas = document.getElementById('check-notas').checked;
         const items = Array.from(document.querySelectorAll('#lista-secciones > div'));
 
-        let h = `<div style="text-align:center; margin-bottom: 15px; color: #000 !important;">
-            <div style="color: #f97316 !important; font-size: 10px; font-weight: 900; text-transform: uppercase; border-bottom: 1.5px solid #f97316; padding-bottom: 2px; margin-bottom: 8px;">Ministerio de Alabanza "Iglesia Bíblica Gracia sobre Gracia"</div>
-            <h1 style="font-size: 26px; margin: 0; text-transform: uppercase; font-weight: 900; line-height: 1.1; color: #000000 !important;">${t}</h1>
-            <div style="font-size: 11px; color: #000000 !important; margin-top: 6px; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 3px 0; font-weight: 800;">TONO: ${tono} | BPM: ${bpm}</div>
-        </div>`;
+        let h = `
+            <div style="text-align:center; margin-bottom: 18px; color: #000 !important;">
+                <div style="color: #f97316 !important; font-size: 10px; font-weight: 900; text-transform: uppercase; 
+                            border-bottom: 1.5px solid #f97316; padding-bottom: 3px; margin-bottom: 10px; letter-spacing: 0.5px;">
+                    ${this.churchName}
+                </div>
+                <h1 style="font-size: 24px; margin: 0; text-transform: uppercase; font-weight: 900; line-height: 1.15; color: #000000 !important;">
+                    ${t}
+                </h1>
+                <div style="font-size: 11px; color: #000000 !important; margin-top: 8px; border-top: 1px solid #000; 
+                            border-bottom: 1px solid #000; padding: 4px 0; font-weight: 800;">
+                    TONO: ${tono} &nbsp;|&nbsp; BPM: ${bpm}
+                </div>
+            </div>
+        `;
         
         h += `<div class="${usarColumnas ? 'dos-columnas' : ''}">`;
         
@@ -206,92 +346,129 @@ const App = {
             let rawTxt = it.querySelector('textarea').value;
             let finalLines = [];
 
-            // Dividir por líneas para procesar inteligentemente
             let lines = rawTxt.split('\n');
 
             lines.forEach(line => {
                 if (!mostrarNotas) {
-                    // MODO CANTANTE: Quitar notas y ver si la línea queda vacía
                     let cleanLine = line.replace(/\[.*?\]/g, '').trimEnd();
-                    // Solo agregamos la línea si no está vacía después de quitar acordes
                     if (cleanLine.trim().length > 0) {
                         finalLines.push(cleanLine);
                     }
                 } else {
-                    // MODO MÚSICO: Renderizar con acordes
-                    let procLine = line.replace(/\[(.*?)\]/g, '<span class="acorde-final">$1</span>')
-                                       .replace(/\*(.*?)\*/g, '<i>$1</i>')
-                                       .replace(/_(.*?)_/g, '<u>$1</u>');
+                    let procLine = line
+                        .replace(/\[(.*?)\]/g, '<span class="acorde-final">$1</span>')
+                        .replace(/\*(.*?)\*/g, '<i>$1</i>')
+                        .replace(/_(.*?)_/g, '<u>$1</u>');
                     finalLines.push(procLine);
                 }
             });
 
-            let etiqueta = tipo.toUpperCase() + (tipo === 'estrofa' ? ' ' + (contE++) : '');
+            let etiqueta = tipo.toUpperCase();
+            if (tipo === 'estrofa') etiqueta += ' ' + (contE++);
             
-            // Solo dibujamos la sección si tiene contenido
             if (finalLines.length > 0) {
-                h += `<div class="no-break" style="margin-bottom: 12px">
-                    <span class="tag-seccion">${etiqueta}</span>
-                    <p style="white-space:pre-wrap; margin:0; font-size: ${this.currentFontSize}px; color: #1e293b; line-height: 1.5;">${finalLines.join('\n')}</p>
-                </div>`;
+                h += `
+                    <div class="no-break" style="margin-bottom: 14px">
+                        <span class="tag-seccion">${etiqueta}</span>
+                        <p style="white-space:pre-wrap; margin:0; font-size: ${this.currentFontSize}px; color: #1e293b; line-height: 1.55;">
+                            ${finalLines.join('\n')}
+                        </p>
+                    </div>
+                `;
             }
         });
+        
         h += `</div>`;
         document.getElementById('render-target').innerHTML = h;
     },
 
+    // ========== PDF ==========
     exportarPDF() {
         const content = document.getElementById('render-target').innerHTML;
         const win = window.open('', '_blank');
-        win.document.write(`<html><head><title>SongWriter PDF</title>
-        <style>
-            body { font-family: 'JetBrains Mono', monospace; padding: 40px; color: #000; background: white; }
-            .acorde-final { color: #2563eb !important; font-weight: 900 !important; }
-            .tag-seccion { color: #f97316 !important; font-weight: 900 !important; font-size: 10px; display: block; text-transform: uppercase; margin-bottom: 2px; }
-            .dos-columnas { column-count: 2; column-gap: 35px; column-rule: 1px solid #eee; }
-            .no-break { break-inside: avoid; }
-            h1 { font-weight: 900; color: #000 !important; }
-            p { white-space: pre-wrap; margin: 0; line-height: 1.5; }
-        </style></head>
-        <body>${content}</body></html>`);
+        win.document.write(`
+            <html>
+            <head>
+                <title>SongWriter PDF</title>
+                <style>
+                    body { font-family: 'JetBrains Mono', monospace; padding: 40px; color: #000; background: white; }
+                    .acorde-final { color: #2563eb !important; font-weight: 900 !important; }
+                    .tag-seccion { color: #f97316 !important; font-weight: 900 !important; font-size: 10px; display: block; text-transform: uppercase; margin-bottom: 2px; }
+                    .dos-columnas { column-count: 2; column-gap: 35px; column-rule: 1px solid #eee; }
+                    .no-break { break-inside: avoid; }
+                    h1 { font-weight: 900; color: #000 !important; }
+                    p { white-space: pre-wrap; margin: 0; line-height: 1.55; }
+                </style>
+            </head>
+            <body>${content}</body>
+            </html>
+        `);
         win.document.close();
-        setTimeout(() => { win.print(); }, 800);
+        setTimeout(() => { win.print(); }, 600);
     },
 
     descargarPDFDirecto() {
         const element = document.getElementById('render-target');
         const titulo = document.getElementById('titulo').value || 'cancion';
         const opt = {
-            margin: [15, 15],
+            margin: [12, 12],
             filename: `${titulo}.pdf`,
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 4, useCORS: true, letterRendering: true, logging: false },
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3, useCORS: true, letterRendering: true, logging: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         this.notify("⏳ Generando PDF...");
-        html2pdf().set(opt).from(element).save().then(() => { this.notify("✅ PDF Descargado"); });
+        html2pdf().set(opt).from(element).save().then(() => {
+            this.notify("✅ PDF Descargado");
+        });
     },
 
+    // ========== GUARDAR / BIBLIOTECA ==========
     guardar() {
-        const t = document.getElementById('titulo').value;
-        if(!t) { this.notify("⚠️ Título vacío"); return; }
-        const data = { t, tono: document.getElementById('tono').value, bpm: document.getElementById('bpm').value, size: this.currentFontSize, cols: document.getElementById('check-cols').checked, notas: document.getElementById('check-notas').checked, secs: Array.from(document.querySelectorAll('#lista-secciones > div')).map(s => ({ tipo: s.dataset.tipo, txt: s.querySelector('textarea').value })) };
-        localStorage.setItem('sw_db_v3', JSON.stringify({ ...JSON.parse(localStorage.getItem('sw_db_v3') || '{}'), [t]: data }));
-        this.notify("✅ Guardado");
+        const t = document.getElementById('titulo').value.trim();
+        if (!t) { 
+            this.notify("⚠️ Escribe un título primero"); 
+            return; 
+        }
+        
+        const data = {
+            t,
+            tono: document.getElementById('tono').value,
+            bpm: document.getElementById('bpm').value,
+            size: this.currentFontSize,
+            cols: document.getElementById('check-cols').checked,
+            notas: document.getElementById('check-notas').checked,
+            secs: Array.from(document.querySelectorAll('#lista-secciones > div')).map(s => ({
+                tipo: s.dataset.tipo,
+                txt: s.querySelector('textarea').value
+            })),
+            updated: new Date().toISOString()
+        };
+        
+        const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+        db[t] = data;
+        localStorage.setItem('sw_db_v3', JSON.stringify(db));
+        
+        this.notify("✅ Guardado correctamente");
     },
 
     exportarDB() {
         const db = localStorage.getItem('sw_db_v3');
-        if(!db) return this.notify("⚠️ Nada que exportar");
+        if (!db || db === '{}') return this.notify("⚠️ No hay canciones para exportar");
+        
         const blob = new Blob([db], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url; a.download = `alabanza_backup.json`;
+        a.href = url;
+        a.download = `alabanza_backup_${new Date().toISOString().slice(0,10)}.json`;
         a.click();
+        URL.revokeObjectURL(url);
+        this.notify("📤 Backup descargado");
     },
 
     importarDB(input) {
         if (!input.files[0]) return;
+        
         const reader = new FileReader();
         reader.onload = (e) => {
             try {
@@ -299,45 +476,140 @@ const App = {
                 const current = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
                 const merged = { ...current, ...imported };
                 localStorage.setItem('sw_db_v3', JSON.stringify(merged));
-                this.notify("📥 ¡Importación Exitosa!");
+                this.notify("📥 Importación exitosa");
                 this.toggleBib(true);
-            } catch (err) { this.notify("❌ Archivo inválido"); }
+            } catch (err) {
+                this.notify("❌ Archivo JSON inválido");
+            }
         };
         reader.readAsText(input.files[0]);
+        input.value = ''; // reset
     },
 
-    toggleBib(s) {
-        document.getElementById('modal-bib').classList.toggle('hidden', !s);
-        if(s) {
-            const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
-            const l = document.getElementById('lista-bib'); 
-            l.innerHTML = '';
-            Object.keys(db).sort().forEach(k => {
-                const d = document.createElement('div');
-                d.className = "flex justify-between items-center p-3 bg-slate-800/60 rounded-lg mb-2 text-sm border border-slate-700/50";
-                d.innerHTML = `<span onclick="App.cargar('${k.replace(/'/g,"\\'")}')" class="flex-1 font-bold cursor-pointer text-indigo-300 truncate">${k}</span><button onclick="App.del('${k.replace(/'/g,"\\'")}')" class="text-rose-500 px-2">🗑️</button>`;
-                l.appendChild(d);
-            });
+    // Cargar canciones desde songs.json del repositorio
+    async cargarDesdeRepo(silent = false) {
+        try {
+            // Intenta varias rutas comunes en GitHub Pages
+            const posiblesRutas = ['./songs.json', '/songs.json', 'songs.json'];
+            let data = null;
+            
+            for (const ruta of posiblesRutas) {
+                try {
+                    const res = await fetch(ruta + '?t=' + Date.now()); // cache bust
+                    if (res.ok) {
+                        data = await res.json();
+                        break;
+                    }
+                } catch (e) { /* continuar */ }
+            }
+            
+            if (!data) {
+                if (!silent) this.notify("⚠️ No se encontró songs.json en el repo");
+                return;
+            }
+            
+            // Merge con lo local (el local tiene prioridad si hay conflicto)
+            const current = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+            const merged = { ...data, ...current };
+            localStorage.setItem('sw_db_v3', JSON.stringify(merged));
+            
+            if (!silent) {
+                this.notify("✅ Biblioteca del repo cargada");
+                this.toggleBib(true);
+            }
+        } catch (err) {
+            if (!silent) this.notify("❌ Error al cargar del repo");
+            console.error(err);
         }
     },
 
+    toggleBib(show) {
+        document.getElementById('modal-bib').classList.toggle('hidden', !show);
+        if (show) {
+            document.getElementById('search-bib').value = '';
+            this.filtrarBib('');
+        }
+    },
+
+    filtrarBib(query) {
+        const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+        const lista = document.getElementById('lista-bib');
+        lista.innerHTML = '';
+        
+        const keys = Object.keys(db).sort((a, b) => a.localeCompare(b, 'es'));
+        const filtradas = query.trim() 
+            ? keys.filter(k => k.toLowerCase().includes(query.toLowerCase()))
+            : keys;
+        
+        if (filtradas.length === 0) {
+            lista.innerHTML = `<div class="text-center text-slate-500 text-sm py-8">No hay canciones${query ? ' con ese nombre' : ''}</div>`;
+            return;
+        }
+        
+        filtradas.forEach(k => {
+            const d = document.createElement('div');
+            d.className = "flex justify-between items-center p-3 bg-slate-800/70 hover:bg-slate-800 rounded-xl text-sm border border-slate-700/40 transition";
+            d.innerHTML = `
+                <span onclick="App.cargar('${k.replace(/'/g, "\\'")}')" 
+                      class="flex-1 font-semibold cursor-pointer text-indigo-300 truncate pr-2 hover:text-indigo-200">
+                    ${k}
+                </span>
+                <button onclick="App.del('${k.replace(/'/g, "\\'")}')" 
+                        class="text-rose-500 hover:text-rose-400 px-2 text-base transition">🗑️</button>
+            `;
+            lista.appendChild(d);
+        });
+    },
+
     cargar(k) {
-        const db = JSON.parse(localStorage.getItem('sw_db_v3'));
+        const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
         const s = db[k];
-        document.getElementById('titulo').value = s.t || ""; 
-        document.getElementById('tono').value = s.tono || ""; 
+        if (!s) return;
+        
+        document.getElementById('titulo').value = s.t || "";
+        document.getElementById('tono').value = s.tono || "";
         document.getElementById('bpm').value = s.bpm || "";
         document.getElementById('check-cols').checked = s.cols || false;
         document.getElementById('check-notas').checked = s.notas !== undefined ? s.notas : true;
-        if(s.size) { document.getElementById('font-size-range').value = s.size; this.updateFontSize(s.size); }
-        this.elLista.innerHTML = ''; 
-        if(s.secs) s.secs.forEach(x => this.addSec(x.tipo, x.txt));
-        this.toggleBib(false); this.render(); this.notify("📂 Cargado");
+        
+        if (s.size) {
+            document.getElementById('font-size-range').value = s.size;
+            this.updateFontSize(s.size);
+        }
+        
+        this.elLista.innerHTML = '';
+        if (s.secs && Array.isArray(s.secs)) {
+            s.secs.forEach(x => this.addSec(x.tipo, x.txt));
+        }
+        
+        this.toggleBib(false);
+        this.render();
+        this.notify("📂 Canción cargada");
     },
 
-    del(k) { if(confirm("¿Borrar?")) { let db = JSON.parse(localStorage.getItem('sw_db_v3')); delete db[k]; localStorage.setItem('sw_db_v3', JSON.stringify(db)); this.toggleBib(true); } },
-    notify(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000); }
+    del(k) {
+        if (confirm(`¿Borrar "${k}"?`)) {
+            let db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+            delete db[k];
+            localStorage.setItem('sw_db_v3', JSON.stringify(db));
+            this.filtrarBib(document.getElementById('search-bib').value);
+            this.notify("🗑️ Eliminada");
+        }
+    },
+
+    notify(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.opacity = '1';
+        t.style.transform = 'translateX(-50%) translateY(0)';
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(() => {
+            t.style.opacity = '0';
+        }, 2200);
+    }
 };
+
+// Iniciar
 window.onload = () => App.init();
 </script>
 </body>
