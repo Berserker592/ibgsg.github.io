@@ -506,25 +506,5 @@
         "txt": "[C] [F] [G] [F] "
       }
     ]
-  },
-  "A Jehová Cantare - var": {
-    "t": "A Jehová Cantare - var",
-    "tono": "",
-    "bpm": "",
-    "capo": "",
-    "size": 11,
-    "cols": false,
-    "notas": true,
-    "secs": [
-      {
-        "tipo": "estrofa",
-        "txt": "A [F]Jehová [D#]cantaré en mi [A#]vida,\na mi Di[F#aug]os cantar[B]é sal[Cm]mos mientras v[Gmaj7]iv[F]a.\n[A#]Dulce [F]será mi [D#]medi[G#]ta[Bdim]ci[G#]ón en [A#]El,\n        [Cm]     [F]        [A#]  [(D7)]\nyo me regocijaré en Jehová."
-      },
-      {
-        "tipo": "coro",
-        "txt": "    [D#]         [F]         [A#] – [Dm] – [Gm]  \nBendice alma mía a Jehová, \n    [D#]         [F]         [A#] – [Cm] – [F] \nBendice alma mía a Jehová. \n    [D#]         [F]         [A#] – [Dm] – [Gm]  \nBendice alma mía a Jehová, \n   [Cm]         [F]         [A#]  \nBendice alma mía a Jehová. "
-      }
-    ],
-    "updated": "2026-10-10T14:53:24.640Z"
   }
 }
