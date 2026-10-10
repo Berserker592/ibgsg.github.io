@@ -468,50 +468,37 @@ const App = {
     return tokens.map(t => (t.ch ? `[${t.ch}]` : '') + t.letter).join('');
   },
 
+  /* Build chord line + lyric line (chords ABOVE letters, sin romper palabras) */
   formatChordOverLyrics(line) {
     const tokens = this.tokenizeLine(line);
     if (!tokens.length) return null;
-    let chordLine = '';
-    let wordLine = '';
-    let i = 0;
-    while (i < tokens.length) {
-      const t = tokens[i];
-      if (t.ch) {
-        // Chord starts here: write chord, then letters until next chord or end
-        const chord = t.ch;
-        let chunk = t.letter;
-        let j = i + 1;
-        while (j < tokens.length && !tokens[j].ch) {
-          chunk += tokens[j].letter;
-          j++;
-        }
-        const width = Math.max(chord.length, chunk.length);
-        chordLine += chord + ' '.repeat(Math.max(0, width - chord.length));
-        wordLine += chunk + ' '.repeat(Math.max(0, width - chunk.length));
-        // gap space between groups if more content
-        if (j < tokens.length) {
-          chordLine += ' ';
-          wordLine += ' ';
-        }
-        i = j;
-      } else {
-        // No chord: accumulate until a chord
-        let chunk = '';
-        while (i < tokens.length && !tokens[i].ch) {
-          chunk += tokens[i].letter;
-          i++;
-        }
-        chordLine += ' '.repeat(chunk.length);
-        wordLine += chunk;
-        if (i < tokens.length) {
-          // about to hit a chord; no extra space needed (chord group adds its own)
+
+    // Letra continua, sin espacios extra por los acordes
+    const wordLine = tokens.map(t => t.letter).join('');
+
+    // Línea de acordes: mismos “huecos” que letras; el acorde empieza en esa sílaba
+    const chordArr = [];
+    for (let i = 0; i < tokens.length; i++) chordArr.push(' ');
+
+    tokens.forEach((t, i) => {
+      if (!t.ch) return;
+      const chord = t.ch;
+      for (let k = 0; k < chord.length; k++) {
+        if (i + k < chordArr.length) {
+          // Solo escribe si la celda está vacía (evita pisar otro acorde)
+          if (chordArr[i + k] === ' ') chordArr[i + k] = chord[k];
+        } else {
+          chordArr.push(chord[k]);
         }
       }
-    }
+    });
+
     const hasChords = tokens.some(t => t.ch);
+    const chordLine = chordArr.join('').replace(/\s+$/, '');
+
     return {
-      chords: hasChords ? chordLine.replace(/\s+$/, '') : '',
-      words: wordLine.replace(/\s+$/, '')
+      chords: hasChords ? chordLine : '',
+      words: wordLine
     };
   },
 
