@@ -506,20 +506,5 @@
         "txt": "[C] [F] [G] [F] "
       }
     ]
-  },
-  "PRUEBA": {
-    "t": "PRUEBA",
-    "tono": "",
-    "bpm": "",
-    "size": 16,
-    "cols": false,
-    "notas": true,
-    "secs": [
-      {
-        "tipo": "intro",
-        "txt": "[C]HELLO [D]WORLD"
-      }
-    ],
-    "updated": "2026-10-10T01:51:21.445Z"
   }
 }
