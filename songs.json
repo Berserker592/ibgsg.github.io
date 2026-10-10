@@ -359,14 +359,14 @@
     "secs": [
       {
         "tipo": "estrofa",
-        "txt": "[D]A [A]Jehová [G]cantaré en mi [D]vida,\n      [Em]           [A]              [D]-[Em]-[A] \na mi Dios cantaré salmos mientras vi……va. \n [D]                    [A]   [G] [D] \nDulce será mi meditación en El, \n        [Em]     [A]        [D]  [(D7)]\nyo me regocijaré en Jehová."
+        "txt": "[D]A [A]Jehová [G]cantaré en mi [D]vida,\n[Em]a mi [A]Dios [D]cantaré [Em]salmos mientras [A]viva.\n[D]Dulce [A]será mi [G]meditación en [D]El,\n        [Em]     [A]        [D]  [(D7)]\nyo me regocijaré en Jehová."
       },
       {
         "tipo": "coro",
         "txt": "    [G]         [A]         [D] – [F#m] – [Bm]  \nBendice alma mía a Jehová, \n    [G]         [A]         [D] – [Em] – [A] \nBendice alma mía a Jehová. \n    [G]         [A]         [D] – [F#m] – [Bm]  \nBendice alma mía a Jehová, \n   [Em]         [A]         [D]  \nBendice alma mía a Jehová. "
       }
     ],
-    "updated": "2026-10-10T02:23:14.251Z"
+    "updated": "2026-10-10T02:25:50.207Z"
   },
   "ADMIRABLE": {
     "t": "ADMIRABLE",
