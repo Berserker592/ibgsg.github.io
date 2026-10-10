@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>I.B.G.S.G"</title>
+<title>I.B.G.S.G</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -366,7 +366,7 @@ const App = {
   targetWord: null,
 
   init() {
-    this.churchName = localStorage.getItem('sw_church') || 'I.B.G.S.G';
+    this.churchName = localStorage.getItem('sw_church') || 'Ministerio de Alabanza "Iglesia Bíblica Gracia Sobre Gracia"';
     const g = JSON.parse(localStorage.getItem('sw_gh') || '{}');
     this.gh = { owner: g.owner||'', repo: g.repo||'', token: g.token||'' };
     this.updatePublishBtn();
@@ -692,7 +692,7 @@ const App = {
     this.render();
     const content = document.getElementById('render-target').innerHTML;
     const win = window.open('', '_blank');
-    win.document.write(`<!DOCTYPE html><html><head><title>Imprimir · I.B.G.S.G</title>
+    win.document.write(`<!DOCTYPE html><html><head><title>Ministerio de Alabanza "Iglesia Bíblica Gracia sobre Gracia"</title>
       <style>
         body { font-family: 'JetBrains Mono', monospace; padding: 36px; color: #1a1a1a; background: #fff; }
         .chord-block { margin-bottom: 16px; break-inside: avoid; }
@@ -930,7 +930,7 @@ const App = {
   },
 
   saveConfig() {
-    this.churchName = document.getElementById('cfg-church').value.trim() || 'I.B.G.S.G';
+    this.churchName = document.getElementById('cfg-church').value.trim() || 'Ministerio de Alabanza "Iglesia Bíblica Gracia Sobre Gracia"';
     localStorage.setItem('sw_church', this.churchName);
     this.gh = {
       owner: document.getElementById('cfg-gh-owner').value.trim(),
