@@ -3,214 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>I.B.G.S.G · Alabanza</title>
+<title>I.B.G.S.G</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0c0f14;
-    --surface: #141a22;
-    --card: #1a222d;
-    --border: #2a3441;
-    --text: #e8e6e3;
-    --muted: #9a958c;
-    --gold: #c9a227;
-    --gold-dim: #a68520;
-    --cream: #f5f0e8;
-  }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
-    font-family: 'Outfit', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f4f4f2;
+    color: #1a1a1a;
     margin: 0;
     height: 100dvh;
     overflow: hidden;
   }
-  .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
   .mono { font-family: 'JetBrains Mono', monospace; }
 
-  .custom-scroll::-webkit-scrollbar { width: 3px; }
-  .custom-scroll::-webkit-scrollbar-thumb { background: #3d4654; border-radius: 99px; }
+  .custom-scroll::-webkit-scrollbar { width: 4px; }
+  .custom-scroll::-webkit-scrollbar-thumb { background: #d4d4d0; border-radius: 99px; }
 
   .sec-ta {
     font-family: 'JetBrains Mono', monospace;
-    background: #0e1218;
-    border: 1px solid var(--border);
-    color: #f0ebe3;
+    background: #fafafa;
+    border: 1px solid #e5e5e2;
+    color: #1a1a1a;
     width: 100%;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 13px;
-    line-height: 1.65;
+    line-height: 1.6;
     outline: none;
     resize: none;
     min-height: 88px;
   }
-  .sec-ta:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,162,39,.2); }
+  .sec-ta:focus { border-color: #1a1a1a; }
 
-  .acorde-final { color: #1d4ed8 !important; font-weight: 800 !important; font-family: 'JetBrains Mono', monospace !important; }
-  .tag-seccion { color: #b45309 !important; font-weight: 800 !important; font-size: 0.68em; display: block; letter-spacing: 1.4px; margin-bottom: 3px; text-transform: uppercase; }
-  .dos-columnas { column-count: 2; column-gap: 24px; column-rule: 1px solid #e5e7eb; }
-  .no-break { break-inside: avoid; }
+  /* Chord-over-lyrics block in preview */
+  .chord-block { margin-bottom: 14px; break-inside: avoid; }
+  .chord-block .sec-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #78716c;
+    margin-bottom: 4px;
+  }
+  .lyric-line {
+    font-family: 'JetBrains Mono', monospace;
+    white-space: pre;
+    margin: 0 0 2px 0;
+    line-height: 1.15;
+  }
+  .lyric-line.chords {
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 0.85em;
+    min-height: 1.1em;
+  }
+  .lyric-line.words {
+    color: #1a1a1a;
+  }
 
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-    font-weight: 600; font-size: 12px; border-radius: 8px;
-    transition: all .15s; cursor: pointer; border: none; user-select: none;
+    font-weight: 600; font-size: 12px; border-radius: 7px;
+    transition: background .12s, color .12s; cursor: pointer; border: none; user-select: none;
   }
-  .btn:active { transform: scale(0.97); }
-  .btn-gold { background: linear-gradient(135deg, #d4af37, #c9a227); color: #1a1508; }
-  .btn-gold:hover { filter: brightness(1.08); }
-  .btn-ghost { background: var(--card); color: var(--muted); border: 1px solid var(--border); }
-  .btn-ghost:hover { color: var(--text); border-color: #3d4654; }
-  .btn-success { background: #0f766e; color: #ecfdf5; }
+  .btn:active { transform: scale(0.98); }
+  .btn-dark { background: #1a1a1a; color: #fff; }
+  .btn-dark:hover { background: #333; }
+  .btn-ghost { background: #fff; color: #525252; border: 1px solid #e5e5e2; }
+  .btn-ghost:hover { background: #f5f5f4; color: #1a1a1a; }
+  .btn-green { background: #166534; color: #fff; }
 
   .section-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    border-left: 3px solid var(--gold-dim);
+    background: #fff;
+    border: 1px solid #e8e8e5;
+    border-radius: 10px;
+    border-left: 3px solid #a8a29e;
   }
 
-  /* Word chips for chord placement */
   .word-chip {
     display: inline-block;
-    padding: 3px 5px;
-    margin: 2px 1px;
-    border-radius: 6px;
+    padding: 2px 4px;
+    margin: 1px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.35;
     border: 1px solid transparent;
-    transition: all .12s;
-    position: relative;
   }
-  .word-chip:hover { background: rgba(201,162,39,.15); border-color: rgba(201,162,39,.35); }
+  .word-chip:hover { background: #f0f0ee; border-color: #d4d4d0; }
   .word-chip .ch-label {
     display: block;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    color: #60a5fa;
+    color: #1d4ed8;
     line-height: 1;
-    margin-bottom: 1px;
-    min-height: 12px;
+    min-height: 11px;
   }
 
-  /* Floating chord popover */
   #chord-pop {
-    position: fixed;
-    z-index: 200;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    position: fixed; z-index: 200;
+    background: #fff;
+    border: 1px solid #e5e5e2;
+    border-radius: 12px;
     padding: 12px;
-    box-shadow: 0 20px 50px rgba(0,0,0,.55);
-    width: min(320px, calc(100vw - 24px));
+    box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    width: min(300px, calc(100vw - 24px));
     display: none;
   }
   #chord-pop.open { display: block; }
   .c-btn {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: #fafafa;
+    border: 1px solid #e5e5e2;
+    color: #1a1a1a;
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
     padding: 7px 0;
-    border-radius: 7px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all .1s;
   }
-  .c-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .c-btn.on { background: rgba(201,162,39,.2); border-color: var(--gold); color: var(--gold); }
+  .c-btn:hover { border-color: #1a1a1a; }
+  .c-btn.on { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
 
   #toast {
-    position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(10px);
-    padding: 10px 20px; border-radius: 999px; background: var(--gold); color: #1a1508;
-    font-weight: 700; font-size: 13px; z-index: 500; opacity: 0; pointer-events: none;
-    transition: all .25s ease; box-shadow: 0 8px 24px rgba(201,162,39,.35);
+    position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(8px);
+    padding: 10px 18px; border-radius: 999px; background: #1a1a1a; color: #fff;
+    font-weight: 600; font-size: 13px; z-index: 500; opacity: 0; pointer-events: none;
+    transition: all .22s ease;
   }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .spinner { width: 14px; height: 14px; border: 2px solid rgba(0,0,0,.2); border-top-color: #1a1508; border-radius: 50%; animation: spin .5s linear infinite; }
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .5s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   @media (max-width: 768px) {
     .view-panel { display: none; }
     .view-panel.active { display: flex; flex-direction: column; }
   }
-
-  /* ===== PRINT FIX ===== */
-  @media print {
-    @page { margin: 12mm; size: A4; }
-    html, body {
-      height: auto !important;
-      overflow: visible !important;
-      background: white !important;
-      color: black !important;
-    }
-    body * { visibility: hidden; }
-    #print-root, #print-root * { visibility: visible !important; }
-    #print-root {
-      position: absolute !important;
-      left: 0 !important;
-      top: 0 !important;
-      width: 100% !important;
-      background: white !important;
-      color: black !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-    header, #mobile-tabs, #panel-editor, .modal-backdrop,
-    #modal-bib, #modal-config, #chord-pop, #toast { display: none !important; }
-  }
 </style>
 </head>
 <body class="flex flex-col">
 
-<!-- HEADER -->
-<header class="bg-[var(--surface)] border-b border-[var(--border)] px-3 py-2 flex items-center justify-between shrink-0 z-50">
+<header class="bg-white border-b border-[#e8e8e5] px-3 py-2 flex items-center justify-between shrink-0 z-50">
   <div class="flex items-center gap-2.5">
-    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#d4af37] to-[#a68520] flex items-center justify-center text-[#1a1508] font-black text-xs serif">IB</div>
-    <div class="leading-tight">
-      <div class="font-bold text-sm tracking-wide text-[var(--cream)]">I.B.G.S.G</div>
-      <div class="text-[9px] text-[var(--muted)] hidden sm:block">Alabanza · Cancionero</div>
+    <div class="w-8 h-8 rounded-md bg-[#1a1a1a] flex items-center justify-center text-white text-[10px] font-bold tracking-tight">IB</div>
+    <div>
+      <div class="font-semibold text-sm text-[#1a1a1a] tracking-wide">I.B.G.S.G</div>
+      <div class="text-[9px] text-[#a3a3a3] hidden sm:block">Cancionero</div>
     </div>
   </div>
   <div class="flex items-center gap-1">
-    <button onclick="App.guardar()" class="btn btn-gold px-3 py-1.5 text-[11px]">Guardar</button>
-    <button id="btn-publish" onclick="App.publicarAlRepo()" class="btn btn-success px-3 py-1.5 text-[11px] hidden">Publicar</button>
+    <button onclick="App.guardar()" class="btn btn-dark px-3 py-1.5 text-[11px]">Guardar</button>
+    <button id="btn-publish" onclick="App.publicarAlRepo()" class="btn btn-green px-3 py-1.5 text-[11px] hidden">Publicar</button>
     <button onclick="App.descargarPDF()" class="btn btn-ghost px-2.5 py-1.5 text-[11px]">PDF</button>
     <button onclick="App.imprimir()" class="btn btn-ghost px-2.5 py-1.5 text-[11px]">Imprimir</button>
-    <button onclick="App.toggleBib(true)" class="btn btn-ghost p-1.5">📚</button>
-    <button onclick="App.toggleConfig(true)" class="btn btn-ghost p-1.5">⚙️</button>
+    <button onclick="App.toggleBib(true)" class="btn btn-ghost p-1.5 text-sm">📚</button>
+    <button onclick="App.toggleConfig(true)" class="btn btn-ghost p-1.5 text-sm">⚙️</button>
   </div>
 </header>
 
-<!-- MOBILE TABS -->
-<div id="mobile-tabs" class="md:hidden flex border-b border-[var(--border)] bg-[var(--surface)] shrink-0">
-  <button id="tab-editor" onclick="App.showPanel('editor')" class="flex-1 py-2.5 text-xs font-semibold text-[var(--gold)] border-b-2 border-[var(--gold)]">Editor</button>
-  <button id="tab-previa" onclick="App.showPanel('previa')" class="flex-1 py-2.5 text-xs font-semibold text-[var(--muted)] border-b-2 border-transparent">Vista previa</button>
+<div id="mobile-tabs" class="md:hidden flex border-b border-[#e8e8e5] bg-white shrink-0">
+  <button id="tab-editor" onclick="App.showPanel('editor')" class="flex-1 py-2.5 text-xs font-semibold text-[#1a1a1a] border-b-2 border-[#1a1a1a]">Editor</button>
+  <button id="tab-previa" onclick="App.showPanel('previa')" class="flex-1 py-2.5 text-xs font-semibold text-[#a3a3a3] border-b-2 border-transparent">Vista previa</button>
 </div>
 
 <main class="flex flex-1 overflow-hidden">
 
-  <!-- EDITOR -->
-  <section id="panel-editor" class="view-panel active w-full md:w-[46%] flex flex-col border-r border-[var(--border)]">
+  <section id="panel-editor" class="view-panel active w-full md:w-[45%] flex flex-col border-r border-[#e8e8e5] bg-[#fafaf9]">
     <div class="flex-1 overflow-y-auto custom-scroll p-3 sm:p-4">
       <div class="max-w-lg mx-auto space-y-3">
 
         <input id="titulo" type="text" placeholder="Título de la canción..."
-               class="w-full bg-transparent text-xl sm:text-2xl font-bold border-b border-[var(--border)] outline-none pb-1.5 focus:border-[var(--gold)] transition placeholder:text-slate-600 serif">
+               class="w-full bg-transparent text-xl font-semibold border-b border-[#e5e5e2] outline-none pb-1.5 focus:border-[#1a1a1a] placeholder:text-[#c4c4c0]">
 
         <div class="grid grid-cols-2 gap-2">
           <div class="space-y-1">
-            <label class="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider">Tono</label>
-            <input id="tono" placeholder="G#m" class="w-full p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)] mono">
+            <label class="text-[10px] font-medium text-[#a3a3a3] uppercase tracking-wider">Tono</label>
+            <input id="tono" placeholder="G#m" class="w-full p-2 rounded-lg bg-white border border-[#e5e5e2] text-sm outline-none focus:border-[#1a1a1a] mono">
             <div class="flex gap-1">
               <button onclick="App.transportar(-1)" class="btn btn-ghost flex-1 py-1 text-[10px]">−1</button>
               <button onclick="App.transportar(-0.5)" class="btn btn-ghost flex-1 py-1 text-[10px]">−½</button>
@@ -219,33 +193,32 @@
             </div>
           </div>
           <div class="space-y-1">
-            <label class="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider">BPM</label>
-            <input id="bpm" type="number" placeholder="72" class="w-full p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)]">
+            <label class="text-[10px] font-medium text-[#a3a3a3] uppercase tracking-wider">BPM</label>
+            <input id="bpm" type="number" placeholder="72" class="w-full p-2 rounded-lg bg-white border border-[#e5e5e2] text-sm outline-none focus:border-[#1a1a1a]">
           </div>
         </div>
 
-        <div class="bg-[var(--card)] rounded-xl border border-[var(--border)] p-3 space-y-2">
+        <div class="bg-white rounded-xl border border-[#e8e8e5] p-3 space-y-2">
           <div class="flex items-center justify-between flex-wrap gap-2">
-            <span class="text-[11px] font-medium text-[var(--muted)]">Tamaño: <span id="val-size" class="text-[var(--gold)]">16px</span></span>
-            <div class="flex gap-3 items-center">
+            <span class="text-[11px] text-[#737373]">Tamaño: <span id="val-size" class="font-semibold text-[#1a1a1a]">16px</span></span>
+            <div class="flex gap-3">
               <label class="flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" id="check-notas" checked onchange="App.render()" class="w-3.5 h-3.5 accent-[var(--gold)]">
-                <span class="text-[11px] font-medium text-[var(--cream)]">Acordes</span>
+                <input type="checkbox" id="check-notas" checked onchange="App.render()" class="w-3.5 h-3.5">
+                <span class="text-[11px] font-medium">Acordes</span>
               </label>
               <label class="flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" id="check-cols" onchange="App.render()" class="w-3.5 h-3.5 accent-[var(--gold)]">
-                <span class="text-[11px] font-medium text-[var(--muted)]">2 cols</span>
+                <input type="checkbox" id="check-cols" onchange="App.render()" class="w-3.5 h-3.5">
+                <span class="text-[11px] font-medium text-[#737373]">2 cols</span>
               </label>
             </div>
           </div>
-          <input type="range" id="font-size-range" min="11" max="24" value="16" oninput="App.updateFontSize(this.value)" class="w-full accent-[var(--gold)]">
+          <input type="range" id="font-size-range" min="11" max="24" value="16" oninput="App.updateFontSize(this.value)" class="w-full accent-[#1a1a1a]">
         </div>
 
-        <!-- Toggle modo acordes -->
-        <div class="flex items-center justify-between bg-[var(--surface)] rounded-xl border border-[var(--border)] px-3 py-2.5">
+        <div class="flex items-center justify-between bg-white rounded-xl border border-[#e8e8e5] px-3 py-2.5">
           <div>
-            <div class="text-sm font-semibold text-[var(--cream)]">Modo colocar acordes</div>
-            <div class="text-[10px] text-[var(--muted)]">Clic en una palabra → elige el acorde</div>
+            <div class="text-sm font-medium">Modo colocar acordes</div>
+            <div class="text-[10px] text-[#a3a3a3]">Clic en una palabra → elige el acorde</div>
           </div>
           <button id="btn-chord-mode" onclick="App.toggleChordMode()" class="btn btn-ghost px-3 py-1.5 text-[11px]">Activar</button>
         </div>
@@ -254,33 +227,30 @@
       </div>
     </div>
 
-    <div class="shrink-0 p-2 bg-[var(--surface)] border-t border-[var(--border)]">
+    <div class="shrink-0 p-2 bg-white border-t border-[#e8e8e5]">
       <div class="grid grid-cols-4 gap-1 max-w-lg mx-auto">
-        <button onclick="App.addSec('intro')" class="btn py-2 rounded-lg bg-sky-900/30 text-sky-300 text-[9px] font-semibold border border-sky-800/40">+ Intro</button>
-        <button onclick="App.addSec('estrofa')" class="btn py-2 rounded-lg bg-amber-900/20 text-amber-200 text-[9px] font-semibold border border-amber-800/30">+ Estrofa</button>
-        <button onclick="App.addSec('precoro')" class="btn py-2 rounded-lg bg-violet-900/25 text-violet-200 text-[9px] font-semibold border border-violet-800/30">+ Pre</button>
-        <button onclick="App.addSec('coro')" class="btn py-2 rounded-lg bg-emerald-900/25 text-emerald-200 text-[9px] font-semibold border border-emerald-800/30">+ Coro</button>
-        <button onclick="App.addSec('puente')" class="btn py-2 rounded-lg bg-orange-900/20 text-orange-200 text-[9px] font-semibold border border-orange-800/30">+ Puente</button>
-        <button onclick="App.addSec('instrumental')" class="btn py-2 rounded-lg bg-rose-900/20 text-rose-200 text-[9px] font-semibold border border-rose-800/30">+ Instr</button>
-        <button onclick="App.addSec('final')" class="btn py-2 rounded-lg bg-slate-800/50 text-slate-300 text-[9px] font-semibold border border-slate-700/40">+ Final</button>
-        <button onclick="App.clearAll()" class="btn py-2 rounded-lg bg-red-950/40 text-red-300 text-[9px] font-semibold border border-red-900/40">Limpiar</button>
+        <button onclick="App.addSec('intro')" class="btn btn-ghost py-2 text-[9px]">+ Intro</button>
+        <button onclick="App.addSec('estrofa')" class="btn btn-ghost py-2 text-[9px]">+ Estrofa</button>
+        <button onclick="App.addSec('precoro')" class="btn btn-ghost py-2 text-[9px]">+ Pre</button>
+        <button onclick="App.addSec('coro')" class="btn btn-ghost py-2 text-[9px]">+ Coro</button>
+        <button onclick="App.addSec('puente')" class="btn btn-ghost py-2 text-[9px]">+ Puente</button>
+        <button onclick="App.addSec('instrumental')" class="btn btn-ghost py-2 text-[9px]">+ Instr</button>
+        <button onclick="App.addSec('final')" class="btn btn-ghost py-2 text-[9px]">+ Final</button>
+        <button onclick="App.clearAll()" class="btn btn-ghost py-2 text-[9px] text-red-600">Limpiar</button>
       </div>
     </div>
   </section>
 
-  <!-- PREVIEW -->
-  <section id="panel-previa" class="view-panel w-full md:w-[54%] bg-[#080b10] overflow-y-auto custom-scroll p-3 sm:p-5">
-    <div class="mx-auto bg-[var(--cream)] text-stone-900 shadow-2xl rounded-lg min-h-full max-w-[680px] overflow-hidden">
-      <div id="print-root">
-        <div id="render-target" class="p-5 sm:p-9"></div>
-      </div>
+  <section id="panel-previa" class="view-panel w-full md:w-[55%] bg-[#ecece9] overflow-y-auto custom-scroll p-3 sm:p-6">
+    <div class="mx-auto bg-white shadow-sm border border-[#e5e5e2] rounded-md min-h-full max-w-[680px]">
+      <div id="render-target" class="p-6 sm:p-10"></div>
     </div>
   </section>
 </main>
 
-<!-- CHORD POPOVER -->
+<!-- Chord popover -->
 <div id="chord-pop">
-  <div class="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-2">Elegir acorde</div>
+  <div class="text-[10px] font-medium text-[#a3a3a3] uppercase tracking-wider mb-2">Acorde</div>
   <div class="grid grid-cols-6 gap-1 mb-2" id="pop-roots">
     <button class="c-btn" data-r="C">C</button>
     <button class="c-btn" data-r="C#">C#</button>
@@ -308,19 +278,19 @@
     <button class="c-btn" data-q="2">2</button>
   </div>
   <div class="flex gap-2">
-    <button onclick="App.applyChord()" class="btn btn-gold flex-1 py-2 text-[11px]">Colocar</button>
+    <button onclick="App.applyChord()" class="btn btn-dark flex-1 py-2 text-[11px]">Colocar</button>
     <button onclick="App.removeChordAtTarget()" class="btn btn-ghost py-2 px-3 text-[11px]">Quitar</button>
     <button onclick="App.closePop()" class="btn btn-ghost py-2 px-3 text-[11px]">✕</button>
   </div>
 </div>
 
-<!-- BIBLIOTECA -->
-<div id="modal-bib" class="fixed inset-0 hidden z-[100] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4">
-  <div class="bg-[var(--surface)] w-full sm:max-w-md sm:rounded-2xl border border-[var(--border)] flex flex-col max-h-[85vh] shadow-2xl">
-    <div class="flex items-center justify-between p-3.5 border-b border-[var(--border)]">
+<!-- Biblioteca -->
+<div id="modal-bib" class="fixed inset-0 hidden z-[100] flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-[2px] p-0 sm:p-4">
+  <div class="bg-white w-full sm:max-w-md sm:rounded-xl border border-[#e5e5e2] flex flex-col max-h-[85vh] shadow-xl">
+    <div class="flex items-center justify-between p-3.5 border-b border-[#e8e8e5]">
       <div>
-        <div class="font-semibold text-[var(--cream)] text-sm">Biblioteca</div>
-        <div class="text-[10px] text-[var(--muted)]" id="bib-count">0 canciones</div>
+        <div class="font-semibold text-sm">Biblioteca</div>
+        <div class="text-[10px] text-[#a3a3a3]" id="bib-count">0 canciones</div>
       </div>
       <div class="flex gap-1">
         <button onclick="App.cargarDesdeRepo()" class="btn btn-ghost px-2 py-1 text-[10px]">🔄</button>
@@ -329,49 +299,49 @@
         <button onclick="App.toggleBib(false)" class="btn btn-ghost px-2 py-1">✕</button>
       </div>
     </div>
-    <div class="p-2.5 border-b border-[var(--border)]">
+    <div class="p-2.5 border-b border-[#e8e8e5]">
       <input id="search-bib" type="text" placeholder="Buscar..." oninput="App.filtrarBib(this.value)"
-             class="w-full p-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)]">
+             class="w-full p-2 rounded-lg bg-[#fafafa] border border-[#e5e5e2] text-sm outline-none focus:border-[#1a1a1a]">
     </div>
     <input type="file" id="file-import" class="hidden" accept=".json" onchange="App.importarDB(this)">
     <div id="lista-bib" class="flex-1 overflow-y-auto custom-scroll p-2.5 space-y-1"></div>
   </div>
 </div>
 
-<!-- CONFIG -->
-<div id="modal-config" class="fixed inset-0 hidden z-[100] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4">
-  <div class="bg-[var(--surface)] w-full sm:max-w-md sm:rounded-2xl border border-[var(--border)] flex flex-col max-h-[90vh] shadow-2xl">
-    <div class="flex items-center justify-between p-3.5 border-b border-[var(--border)]">
-      <div class="font-semibold text-[var(--cream)] text-sm">Configuración</div>
+<!-- Config -->
+<div id="modal-config" class="fixed inset-0 hidden z-[100] flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-[2px] p-0 sm:p-4">
+  <div class="bg-white w-full sm:max-w-md sm:rounded-xl border border-[#e5e5e2] flex flex-col max-h-[90vh] shadow-xl">
+    <div class="flex items-center justify-between p-3.5 border-b border-[#e8e8e5]">
+      <div class="font-semibold text-sm">Configuración</div>
       <button onclick="App.toggleConfig(false)" class="btn btn-ghost px-2 py-1">✕</button>
     </div>
     <div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-5">
       <div>
-        <label class="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider block mb-1">Nombre del ministerio</label>
-        <input id="cfg-church" type="text" class="w-full p-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)]" placeholder="I.B.G.S.G">
+        <label class="text-[10px] font-medium text-[#a3a3a3] uppercase tracking-wider block mb-1">Ministerio</label>
+        <input id="cfg-church" type="text" class="w-full p-2.5 rounded-lg bg-[#fafafa] border border-[#e5e5e2] text-sm outline-none focus:border-[#1a1a1a]" placeholder="I.B.G.S.G">
       </div>
       <div class="space-y-2">
         <div class="flex items-center justify-between">
-          <label class="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider">GitHub</label>
-          <span id="gh-status" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">No configurado</span>
+          <label class="text-[10px] font-medium text-[#a3a3a3] uppercase tracking-wider">GitHub</label>
+          <span id="gh-status" class="text-[10px] px-2 py-0.5 rounded-full bg-[#f5f5f4] text-[#737373]">No configurado</span>
         </div>
-        <div class="bg-[var(--bg)] rounded-xl border border-[var(--border)] p-3 space-y-3 text-sm">
+        <div class="bg-[#fafafa] rounded-xl border border-[#e5e5e2] p-3 space-y-3 text-sm">
           <div>
-            <label class="text-[10px] text-[var(--muted)] block mb-1">Owner (usuario u org)</label>
-            <input id="cfg-gh-owner" type="text" placeholder="tu-usuario" class="w-full p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)]">
-            <p class="text-[10px] text-slate-600 mt-1">De la URL: github.com/<b>OWNER</b>/repo</p>
+            <label class="text-[10px] text-[#a3a3a3] block mb-1">Owner</label>
+            <input id="cfg-gh-owner" type="text" placeholder="tu-usuario" class="w-full p-2 rounded-lg bg-white border border-[#e5e5e2] text-sm outline-none">
+            <p class="text-[10px] text-[#c4c4c0] mt-1">github.com/<b>OWNER</b>/repo</p>
           </div>
           <div>
-            <label class="text-[10px] text-[var(--muted)] block mb-1">Repositorio</label>
-            <input id="cfg-gh-repo" type="text" placeholder="nombre-repo" class="w-full p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)]">
+            <label class="text-[10px] text-[#a3a3a3] block mb-1">Repositorio</label>
+            <input id="cfg-gh-repo" type="text" placeholder="nombre-repo" class="w-full p-2 rounded-lg bg-white border border-[#e5e5e2] text-sm outline-none">
           </div>
           <div>
-            <label class="text-[10px] text-[var(--muted)] block mb-1">Fine-grained Token</label>
-            <input id="cfg-gh-token" type="password" placeholder="github_pat_..." class="w-full p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm outline-none focus:border-[var(--gold)] mono">
+            <label class="text-[10px] text-[#a3a3a3] block mb-1">Token</label>
+            <input id="cfg-gh-token" type="password" placeholder="github_pat_..." class="w-full p-2 rounded-lg bg-white border border-[#e5e5e2] text-sm outline-none mono">
           </div>
         </div>
       </div>
-      <button onclick="App.saveConfig()" class="btn btn-gold w-full py-2.5">Guardar configuración</button>
+      <button onclick="App.saveConfig()" class="btn btn-dark w-full py-2.5">Guardar</button>
     </div>
   </div>
 </div>
@@ -381,8 +351,8 @@
 <script>
 const App = {
   configs: {
-    intro: 'border-l-sky-500', estrofa: 'border-l-amber-500', precoro: 'border-l-violet-500',
-    coro: 'border-l-emerald-500', puente: 'border-l-orange-500', instrumental: 'border-l-rose-500', final: 'border-l-slate-400'
+    intro: 'border-l-sky-400', estrofa: 'border-l-stone-400', precoro: 'border-l-violet-400',
+    coro: 'border-l-emerald-500', puente: 'border-l-amber-500', instrumental: 'border-l-rose-400', final: 'border-l-neutral-400'
   },
   currentFontSize: 16,
   notasEscala: ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'],
@@ -434,15 +404,65 @@ const App = {
     this.render();
   },
 
+  /* Parse line into {chord, word} parts */
+  parseLine(line) {
+    const parts = [];
+    let i = 0;
+    while (i < line.length) {
+      if (line[i] === '[') {
+        const end = line.indexOf(']', i);
+        if (end !== -1) {
+          const c = line.slice(i + 1, end);
+          i = end + 1;
+          let word = '';
+          while (i < line.length && line[i] !== ' ' && line[i] !== '[') word += line[i++];
+          parts.push({ chord: c, word: word || '' });
+          continue;
+        }
+      }
+      if (line[i] === ' ') { i++; continue; }
+      let word = '';
+      while (i < line.length && line[i] !== ' ' && line[i] !== '[') word += line[i++];
+      parts.push({ chord: '', word });
+    }
+    return parts;
+  },
+
+  /* Build chord line + lyric line (chords ABOVE words) */
+  formatChordOverLyrics(line, fontSize) {
+    const parts = this.parseLine(line);
+    if (!parts.length) return null;
+
+    let chordLine = '';
+    let wordLine = '';
+
+    parts.forEach((p, idx) => {
+      const word = p.word || (p.chord ? ' ' : '');
+      const chord = p.chord || '';
+      // Pad chord to at least word width, then gap between words
+      const gap = idx < parts.length - 1 ? ' ' : '';
+      const unit = Math.max(word.length, chord.length, 1);
+      const chordPad = chord + ' '.repeat(Math.max(0, unit - chord.length));
+      const wordPad = word + ' '.repeat(Math.max(0, unit - word.length));
+      chordLine += chordPad + (gap ? ' ' : '');
+      wordLine += wordPad + (gap ? ' ' : '');
+    });
+
+    // Trim trailing spaces on chord line only if empty of chords
+    const hasChords = parts.some(p => p.chord);
+    return {
+      chords: hasChords ? chordLine.replace(/\s+$/, '') : '',
+      words: wordLine.replace(/\s+$/, '')
+    };
+  },
+
   toggleChordMode() {
     this.chordMode = !this.chordMode;
     const btn = document.getElementById('btn-chord-mode');
     btn.textContent = this.chordMode ? 'Desactivar' : 'Activar';
-    btn.className = this.chordMode
-      ? 'btn btn-gold px-3 py-1.5 text-[11px]'
-      : 'btn btn-ghost px-3 py-1.5 text-[11px]';
+    btn.className = this.chordMode ? 'btn btn-dark px-3 py-1.5 text-[11px]' : 'btn btn-ghost px-3 py-1.5 text-[11px]';
     this.refreshSectionsUI();
-    this.notify(this.chordMode ? 'Clic en una palabra para colocar acorde' : 'Modo texto');
+    this.notify(this.chordMode ? 'Toca una palabra para el acorde' : 'Modo texto');
   },
 
   refreshSectionsUI() {
@@ -451,10 +471,7 @@ const App = {
       const visual = div.querySelector('.chord-visual');
       if (this.chordMode) {
         ta.style.display = 'none';
-        if (visual) {
-          visual.style.display = 'block';
-          this.buildWordChips(div);
-        }
+        if (visual) { visual.style.display = 'block'; this.buildWordChips(div); }
       } else {
         ta.style.display = 'block';
         if (visual) visual.style.display = 'none';
@@ -471,47 +488,18 @@ const App = {
 
     lines.forEach((line, li) => {
       const lineEl = document.createElement('div');
-      lineEl.className = 'mb-2 leading-relaxed';
-      // Parse tokens: optional [chord] + word
-      const tokens = [];
-      const re = /(\[[^\]]*\])?([^\s\[\]]+)|(\s+)/g;
-      let m;
-      const raw = line || ' ';
-      // Simpler split keeping chords attached to following word
-      const parts = [];
-      let i = 0;
-      while (i < line.length) {
-        if (line[i] === '[') {
-          const end = line.indexOf(']', i);
-          if (end !== -1) {
-            const chord = line.slice(i+1, end);
-            i = end + 1;
-            // next word
-            let word = '';
-            while (i < line.length && line[i] !== ' ' && line[i] !== '[') {
-              word += line[i++];
-            }
-            parts.push({ chord, word: word || '·' });
-            continue;
-          }
-        }
-        if (line[i] === ' ') { i++; continue; }
-        let word = '';
-        while (i < line.length && line[i] !== ' ' && line[i] !== '[') {
-          word += line[i++];
-        }
-        parts.push({ chord: '', word });
-      }
-      if (!parts.length && line.trim() === '') {
-        lineEl.innerHTML = '<span class="text-slate-600 text-xs">— línea vacía —</span>';
+      lineEl.className = 'mb-2';
+      const parts = this.parseLine(line);
+      if (!parts.length) {
+        lineEl.innerHTML = '<span class="text-[#c4c4c0] text-xs">—</span>';
       } else {
         parts.forEach((p, wi) => {
           const chip = document.createElement('span');
           chip.className = 'word-chip';
-          chip.innerHTML = `<span class="ch-label">${p.chord || ''}</span>${p.word}`;
+          chip.innerHTML = `<span class="ch-label">${p.chord || ''}</span>${p.word || '·'}`;
           chip.onclick = (ev) => {
             ev.stopPropagation();
-            this.openPop(secDiv, li, wi, p, chip, ev);
+            this.openPop(secDiv, li, wi, p, ev);
           };
           lineEl.appendChild(chip);
         });
@@ -520,24 +508,20 @@ const App = {
     });
   },
 
-  openPop(secDiv, lineIdx, wordIdx, part, chipEl, ev) {
+  openPop(secDiv, lineIdx, wordIdx, part, ev) {
     this.targetSec = secDiv;
     this.targetLine = lineIdx;
     this.targetWord = wordIdx;
-    this.popRoot = part.chord ? (part.chord.match(/^([A-G][#b]?)/)||[])[1] : null;
-    this.popQual = part.chord ? part.chord.replace(/^([A-G][#b]?)/,'') : '';
+    this.popRoot = part.chord ? (part.chord.match(/^([A-G][#b]?)/) || [])[1] : null;
+    this.popQual = part.chord ? part.chord.replace(/^[A-G][#b]?/, '') : '';
 
-    document.querySelectorAll('#pop-roots .c-btn').forEach(b => {
-      b.classList.toggle('on', b.dataset.r === this.popRoot);
-    });
-    document.querySelectorAll('#pop-quals .c-btn').forEach(b => {
-      b.classList.toggle('on', b.dataset.q === this.popQual);
-    });
+    document.querySelectorAll('#pop-roots .c-btn').forEach(b => b.classList.toggle('on', b.dataset.r === this.popRoot));
+    document.querySelectorAll('#pop-quals .c-btn').forEach(b => b.classList.toggle('on', b.dataset.q === this.popQual));
 
     const pop = document.getElementById('chord-pop');
     pop.classList.add('open');
-    const x = Math.min(ev.clientX, window.innerWidth - 340);
-    const y = Math.min(ev.clientY + 8, window.innerHeight - 280);
+    const x = Math.min(ev.clientX, window.innerWidth - 320);
+    const y = Math.min(ev.clientY + 6, window.innerHeight - 260);
     pop.style.left = Math.max(8, x) + 'px';
     pop.style.top = Math.max(8, y) + 'px';
   },
@@ -548,12 +532,8 @@ const App = {
   },
 
   applyChord() {
-    if (!this.targetSec || !this.popRoot) {
-      this.notify('Elige una nota');
-      return;
-    }
-    const chord = this.popRoot + this.popQual;
-    this.setChordOnWord(this.targetSec, this.targetLine, this.targetWord, chord);
+    if (!this.targetSec || !this.popRoot) return this.notify('Elige una nota');
+    this.setChordOnWord(this.targetSec, this.targetLine, this.targetWord, this.popRoot + this.popQual);
     this.closePop();
   },
 
@@ -566,33 +546,8 @@ const App = {
   setChordOnWord(secDiv, lineIdx, wordIdx, chord) {
     const ta = secDiv.querySelector('textarea');
     const lines = ta.value.split('\n');
-    let line = lines[lineIdx] || '';
-
-    // Rebuild line with chords
-    const parts = [];
-    let i = 0;
-    while (i < line.length) {
-      if (line[i] === '[') {
-        const end = line.indexOf(']', i);
-        if (end !== -1) {
-          const c = line.slice(i+1, end);
-          i = end + 1;
-          let word = '';
-          while (i < line.length && line[i] !== ' ' && line[i] !== '[') word += line[i++];
-          parts.push({ chord: c, word: word || '·' });
-          continue;
-        }
-      }
-      if (line[i] === ' ') { i++; continue; }
-      let word = '';
-      while (i < line.length && line[i] !== ' ' && line[i] !== '[') word += line[i++];
-      parts.push({ chord: '', word });
-    }
-
-    if (parts[wordIdx]) {
-      parts[wordIdx].chord = chord;
-    }
-
+    const parts = this.parseLine(lines[lineIdx] || '');
+    if (parts[wordIdx]) parts[wordIdx].chord = chord;
     lines[lineIdx] = parts.map(p => (p.chord ? `[${p.chord}]` : '') + p.word).join(' ');
     ta.value = lines.join('\n');
     this.buildWordChips(secDiv);
@@ -600,14 +555,14 @@ const App = {
   },
 
   showPanel(which) {
-    document.getElementById('panel-editor').classList.toggle('active', which==='editor');
-    document.getElementById('panel-previa').classList.toggle('active', which==='previa');
-    document.getElementById('tab-editor').className = which==='editor'
-      ? 'flex-1 py-2.5 text-xs font-semibold text-[var(--gold)] border-b-2 border-[var(--gold)]'
-      : 'flex-1 py-2.5 text-xs font-semibold text-[var(--muted)] border-b-2 border-transparent';
-    document.getElementById('tab-previa').className = which==='previa'
-      ? 'flex-1 py-2.5 text-xs font-semibold text-[var(--gold)] border-b-2 border-[var(--gold)]'
-      : 'flex-1 py-2.5 text-xs font-semibold text-[var(--muted)] border-b-2 border-transparent';
+    document.getElementById('panel-editor').classList.toggle('active', which === 'editor');
+    document.getElementById('panel-previa').classList.toggle('active', which === 'previa');
+    document.getElementById('tab-editor').className = which === 'editor'
+      ? 'flex-1 py-2.5 text-xs font-semibold text-[#1a1a1a] border-b-2 border-[#1a1a1a]'
+      : 'flex-1 py-2.5 text-xs font-semibold text-[#a3a3a3] border-b-2 border-transparent';
+    document.getElementById('tab-previa').className = which === 'previa'
+      ? 'flex-1 py-2.5 text-xs font-semibold text-[#1a1a1a] border-b-2 border-[#1a1a1a]'
+      : 'flex-1 py-2.5 text-xs font-semibold text-[#a3a3a3] border-b-2 border-transparent';
   },
 
   updateFontSize(v) {
@@ -616,16 +571,16 @@ const App = {
     this.render();
   },
 
-  addSec(tipo, txt='') {
+  addSec(tipo, txt = '') {
     const div = document.createElement('div');
-    div.className = `section-card p-3 ${this.configs[tipo]||''}`;
+    div.className = `section-card p-3 ${this.configs[tipo] || ''}`;
     div.dataset.tipo = tipo;
     div.innerHTML = `
       <div class="flex justify-between items-center mb-1.5">
-        <span class="drag-handle text-[10px] font-semibold uppercase tracking-wider text-[var(--muted)] cursor-grab">⠿ ${tipo}</span>
-        <button onclick="this.closest('[data-tipo]').remove();App.render()" class="text-slate-600 hover:text-rose-400 text-sm px-1">✕</button>
+        <span class="drag-handle text-[10px] font-medium uppercase tracking-wider text-[#a3a3a3] cursor-grab">⠿ ${tipo}</span>
+        <button onclick="this.closest('[data-tipo]').remove();App.render()" class="text-[#c4c4c0] hover:text-red-500 text-sm px-1">✕</button>
       </div>
-      <textarea class="sec-ta" oninput="App.onSecInput(this)" placeholder="Escribe la letra aquí...">${txt}</textarea>
+      <textarea class="sec-ta" oninput="App.onSecInput(this)" placeholder="Escribe la letra...">${txt}</textarea>
       <div class="chord-visual mt-1" style="display:none"></div>`;
     this.elLista.appendChild(div);
     if (this.chordMode) {
@@ -634,12 +589,11 @@ const App = {
       this.buildWordChips(div);
     }
     this.render();
-    setTimeout(() => div.querySelector('textarea').focus(), 40);
+    setTimeout(() => div.querySelector('textarea').focus(), 30);
   },
 
   onSecInput(ta) {
-    const div = ta.closest('[data-tipo]');
-    if (this.chordMode) this.buildWordChips(div);
+    if (this.chordMode) this.buildWordChips(ta.closest('[data-tipo]'));
     this.render();
   },
 
@@ -651,24 +605,24 @@ const App = {
 
   transportar(pasos) {
     document.querySelectorAll('.sec-ta').forEach(box => {
-      box.value = box.value.replace(/\[(.*?)\]/g, (_,n) => `[${this.cambiarNota(n,pasos)}]`);
+      box.value = box.value.replace(/\[(.*?)\]/g, (_, n) => `[${this.cambiarNota(n, pasos)}]`);
     });
     const tono = document.getElementById('tono');
     if (tono.value) tono.value = this.cambiarNota(tono.value, pasos);
     if (this.chordMode) this.refreshSectionsUI();
     this.render();
-    this.notify(`Transportado ${pasos>0?'+':''}${pasos}`);
+    this.notify(`Transportado ${pasos > 0 ? '+' : ''}${pasos}`);
   },
 
   cambiarNota(notaStr, pasos) {
     const m = notaStr.match(/^([A-G][#b]?)(.*)/);
     if (!m) return notaStr;
     let raiz = m[1], sufijo = m[2];
-    const map = { Db:'C#', Eb:'D#', Gb:'F#', Ab:'G#', Bb:'A#' };
+    const map = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
     if (map[raiz]) raiz = map[raiz];
     let i = this.notasEscala.indexOf(raiz);
     if (i === -1) return notaStr;
-    let ni = (i + pasos*2) % 12;
+    let ni = (i + pasos * 2) % 12;
     while (ni < 0) ni += 12;
     return this.notasEscala[ni] + sufijo;
   },
@@ -678,49 +632,79 @@ const App = {
     const tono = document.getElementById('tono').value || '—';
     const bpm = document.getElementById('bpm').value || '—';
     const cols = document.getElementById('check-cols').checked;
-    const notas = document.getElementById('check-notas').checked;
+    const showChords = document.getElementById('check-notas').checked;
     const items = [...document.querySelectorAll('#lista-secciones > div')];
+    const fs = this.currentFontSize;
 
-    let h = `<div style="text-align:center;margin-bottom:18px;font-family:Georgia,serif">
-      <div style="color:#b45309;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
-                  border-bottom:1.5px solid #b45309;padding-bottom:4px;margin-bottom:8px">${this.churchName}</div>
-      <h1 style="font-size:22px;margin:0;font-weight:700;text-transform:uppercase;line-height:1.2;color:#1c1917">${t}</h1>
-      <div style="font-size:11px;margin-top:8px;border-top:1px solid #292524;border-bottom:1px solid #292524;
-                  padding:5px 0;font-weight:600;color:#1c1917;font-family:monospace">TONO: ${tono} &nbsp;|&nbsp; BPM: ${bpm}</div>
-    </div><div class="${cols?'dos-columnas':''}">`;
+    let h = `<div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#78716c;
+                  border-bottom:1px solid #d6d3d1;padding-bottom:6px;margin-bottom:10px">${this.churchName}</div>
+      <h1 style="font-size:22px;margin:0;font-weight:700;text-transform:uppercase;line-height:1.2;color:#1a1a1a">${t}</h1>
+      <div style="font-size:11px;margin-top:8px;font-family:'JetBrains Mono',monospace;color:#444;font-weight:600">
+        TONO: ${tono} &nbsp;·&nbsp; BPM: ${bpm}
+      </div>
+    </div>
+    <div style="${cols ? 'column-count:2;column-gap:28px;column-rule:1px solid #e7e5e4' : ''}">`;
 
     let contE = 1;
     items.forEach(it => {
       const tipo = it.dataset.tipo;
       const lines = it.querySelector('textarea').value.split('\n');
-      let final = [];
+      let body = '';
+
       lines.forEach(line => {
-        if (!notas) {
-          const c = line.replace(/\[.*?\]/g,'').trimEnd();
-          if (c.trim()) final.push(c);
+        if (!line.trim() && !/\S/.test(line)) return;
+        if (!showChords) {
+          const clean = line.replace(/\[.*?\]/g, '').trimEnd();
+          if (clean.trim()) {
+            body += `<div class="lyric-line words" style="font-size:${fs}px">${this.esc(clean)}</div>`;
+          }
         } else {
-          final.push(line.replace(/\[(.*?)\]/g,'<span class="acorde-final">$1</span>')
-                         .replace(/\*(.*?)\*/g,'<i>$1</i>')
-                         .replace(/_(.*?)_/g,'<u>$1</u>'));
+          const formatted = this.formatChordOverLyrics(line, fs);
+          if (!formatted) return;
+          if (formatted.chords) {
+            body += `<div class="lyric-line chords" style="font-size:${Math.max(11, fs - 2)}px">${this.esc(formatted.chords)}</div>`;
+          }
+          body += `<div class="lyric-line words" style="font-size:${fs}px;margin-bottom:6px">${this.esc(formatted.words)}</div>`;
         }
       });
-      if (final.length) {
+
+      if (body) {
         let label = tipo.toUpperCase();
         if (tipo === 'estrofa') label += ' ' + (contE++);
-        h += `<div class="no-break" style="margin-bottom:13px">
-          <span class="tag-seccion">${label}</span>
-          <p style="white-space:pre-wrap;margin:0;font-size:${this.currentFontSize}px;color:#1c1917;line-height:1.55;font-family:'JetBrains Mono',monospace">${final.join('\n')}</p>
+        h += `<div class="chord-block">
+          <div class="sec-label">${label}</div>
+          ${body}
         </div>`;
       }
     });
+
     h += '</div>';
     document.getElementById('render-target').innerHTML = h;
   },
 
+  esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  },
+
+  /* Print: open new window (worked before) */
   imprimir() {
-    // Ensure content is ready
     this.render();
-    setTimeout(() => window.print(), 100);
+    const content = document.getElementById('render-target').innerHTML;
+    const win = window.open('', '_blank');
+    win.document.write(`<!DOCTYPE html><html><head><title>Imprimir · I.B.G.S.G</title>
+      <style>
+        body { font-family: 'JetBrains Mono', monospace; padding: 36px; color: #1a1a1a; background: #fff; }
+        .chord-block { margin-bottom: 16px; break-inside: avoid; }
+        .sec-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #78716c; margin-bottom: 4px; font-family: Inter, sans-serif; }
+        .lyric-line { white-space: pre; margin: 0 0 2px 0; line-height: 1.15; font-family: 'JetBrains Mono', monospace; }
+        .lyric-line.chords { color: #1d4ed8; font-weight: 700; }
+        .lyric-line.words { color: #1a1a1a; }
+        h1 { font-family: Inter, sans-serif; }
+      </style>
+    </head><body>${content}</body></html>`);
+    win.document.close();
+    setTimeout(() => { win.focus(); win.print(); }, 400);
   },
 
   descargarPDF() {
@@ -729,10 +713,11 @@ const App = {
     const titulo = document.getElementById('titulo').value || 'cancion';
     this.notify('Generando PDF...');
     html2pdf().set({
-      margin: [12,12], filename: `${titulo}.pdf`,
-      image: { type:'jpeg', quality:0.98 },
-      html2canvas: { scale:3, useCORS:true, letterRendering:true, backgroundColor:'#f5f0e8' },
-      jsPDF: { unit:'mm', format:'a4', orientation:'portrait' }
+      margin: [14, 14],
+      filename: `${titulo}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 3, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(el).save().then(() => this.notify('PDF listo'));
   },
 
@@ -740,11 +725,15 @@ const App = {
     const t = document.getElementById('titulo').value.trim();
     if (!t) return null;
     return {
-      t, tono: document.getElementById('tono').value, bpm: document.getElementById('bpm').value,
-      size: this.currentFontSize, cols: document.getElementById('check-cols').checked,
+      t,
+      tono: document.getElementById('tono').value,
+      bpm: document.getElementById('bpm').value,
+      size: this.currentFontSize,
+      cols: document.getElementById('check-cols').checked,
       notas: document.getElementById('check-notas').checked,
       secs: [...document.querySelectorAll('#lista-secciones > div')].map(s => ({
-        tipo: s.dataset.tipo, txt: s.querySelector('textarea').value
+        tipo: s.dataset.tipo,
+        txt: s.querySelector('textarea').value
       })),
       updated: new Date().toISOString()
     };
@@ -753,7 +742,7 @@ const App = {
   guardar() {
     const data = this.getSongData();
     if (!data) return this.notify('Escribe un título');
-    const db = JSON.parse(localStorage.getItem('sw_db_v3')||'{}');
+    const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
     db[data.t] = data;
     localStorage.setItem('sw_db_v3', JSON.stringify(db));
     this.notify('Guardado');
@@ -766,8 +755,8 @@ const App = {
     if (st) {
       st.textContent = ok ? 'Listo' : 'No configurado';
       st.className = ok
-        ? 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-900/40 text-emerald-400'
-        : 'text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400';
+        ? 'text-[10px] px-2 py-0.5 rounded-full bg-green-50 text-green-700'
+        : 'text-[10px] px-2 py-0.5 rounded-full bg-[#f5f5f4] text-[#737373]';
     }
   },
 
@@ -784,12 +773,16 @@ const App = {
       const api = `https://api.github.com/repos/${this.gh.owner}/${this.gh.repo}/contents/songs.json`;
       let sha = null, current = {};
       const getRes = await fetch(api, {
-        headers: { 'Authorization': `Bearer ${this.gh.token}`, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }
+        headers: {
+          'Authorization': `Bearer ${this.gh.token}`,
+          'Accept': 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
       });
       if (getRes.ok) {
         const file = await getRes.json();
         sha = file.sha;
-        current = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
+        current = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
       } else if (getRes.status !== 404) throw new Error('No se pudo leer songs.json');
       current[data.t] = data;
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(current, null, 2))));
@@ -801,90 +794,98 @@ const App = {
           'X-GitHub-Api-Version': '2022-11-28',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: `🎵 ${data.t}`, content, sha: sha||undefined, branch: 'main' })
+        body: JSON.stringify({ message: `🎵 ${data.t}`, content, sha: sha || undefined, branch: 'main' })
       });
       if (!putRes.ok) {
         const err = await putRes.json();
         throw new Error(err.message || 'Error');
       }
-      const local = JSON.parse(localStorage.getItem('sw_db_v3')||'{}');
+      const local = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
       local[data.t] = data;
       localStorage.setItem('sw_db_v3', JSON.stringify(local));
       this.notify('Publicado');
     } catch (e) {
-      this.notify('Error: ' + (e.message||''));
+      this.notify('Error: ' + (e.message || ''));
     } finally {
       btn.innerHTML = orig;
       btn.disabled = false;
     }
   },
 
-  async cargarDesdeRepo(silent=false) {
+  async cargarDesdeRepo(silent = false) {
     try {
       let data = null;
-      for (const r of ['./songs.json','/songs.json','songs.json']) {
+      for (const r of ['./songs.json', '/songs.json', 'songs.json']) {
         try {
-          const res = await fetch(r+'?t='+Date.now());
+          const res = await fetch(r + '?t=' + Date.now());
           if (res.ok) { data = await res.json(); break; }
-        } catch(e) {}
+        } catch (e) {}
       }
       if (!data) { if (!silent) this.notify('No hay songs.json'); return; }
-      const cur = JSON.parse(localStorage.getItem('sw_db_v3')||'{}');
-      localStorage.setItem('sw_db_v3', JSON.stringify(silent?{...cur,...data}:{...data,...cur}));
+      const cur = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+      localStorage.setItem('sw_db_v3', JSON.stringify(silent ? { ...cur, ...data } : { ...data, ...cur }));
       if (!silent) { this.notify('Biblioteca actualizada'); this.toggleBib(true); }
-    } catch(e) { if (!silent) this.notify('Error al cargar'); }
+    } catch (e) {
+      if (!silent) this.notify('Error al cargar');
+    }
   },
 
   toggleBib(show) {
     document.getElementById('modal-bib').classList.toggle('hidden', !show);
-    if (show) { document.getElementById('search-bib').value=''; this.filtrarBib(''); }
+    if (show) {
+      document.getElementById('search-bib').value = '';
+      this.filtrarBib('');
+    }
   },
 
   filtrarBib(q) {
-    const db = JSON.parse(localStorage.getItem('sw_db_v3')||'{}');
-    const keys = Object.keys(db).sort((a,b)=>a.localeCompare(b,'es'));
-    const filtered = q.trim() ? keys.filter(k=>k.toLowerCase().includes(q.toLowerCase())) : keys;
+    const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+    const keys = Object.keys(db).sort((a, b) => a.localeCompare(b, 'es'));
+    const filtered = q.trim() ? keys.filter(k => k.toLowerCase().includes(q.toLowerCase())) : keys;
     document.getElementById('bib-count').textContent = keys.length + ' canciones';
     const lista = document.getElementById('lista-bib');
     if (!filtered.length) {
-      lista.innerHTML = '<div class="text-center py-10 text-slate-500 text-sm">Sin canciones</div>';
+      lista.innerHTML = '<div class="text-center py-10 text-[#a3a3a3] text-sm">Sin canciones</div>';
       return;
     }
     lista.innerHTML = filtered.map(k => {
       const s = db[k];
-      const meta = [s.tono, s.bpm?s.bpm+' BPM':''].filter(Boolean).join(' · ');
-      return `<div class="flex items-center gap-2 p-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)]">
-        <div class="flex-1 min-w-0 cursor-pointer" onclick="App.cargar('${k.replace(/'/g,"\\'")}')">
-          <div class="font-semibold text-[var(--cream)] text-sm truncate">${k}</div>
-          ${meta?`<div class="text-[10px] text-[var(--muted)]">${meta}</div>`:''}
+      const meta = [s.tono, s.bpm ? s.bpm + ' BPM' : ''].filter(Boolean).join(' · ');
+      return `<div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#fafafa] border border-[#e8e8e5]">
+        <div class="flex-1 min-w-0 cursor-pointer" onclick="App.cargar('${k.replace(/'/g, "\\'")}')">
+          <div class="font-medium text-sm truncate">${k}</div>
+          ${meta ? `<div class="text-[10px] text-[#a3a3a3]">${meta}</div>` : ''}
         </div>
-        <button onclick="App.del('${k.replace(/'/g,"\\'")}')" class="text-rose-400 text-sm p-1">🗑</button>
+        <button onclick="App.del('${k.replace(/'/g, "\\'")}')" class="text-[#c4c4c0] hover:text-red-500 text-sm p-1">🗑</button>
       </div>`;
     }).join('');
   },
 
   cargar(k) {
-    const s = JSON.parse(localStorage.getItem('sw_db_v3')||'{}')[k];
+    const s = JSON.parse(localStorage.getItem('sw_db_v3') || '{}')[k];
     if (!s) return;
-    document.getElementById('titulo').value = s.t||'';
-    document.getElementById('tono').value = s.tono||'';
-    document.getElementById('bpm').value = s.bpm||'';
+    document.getElementById('titulo').value = s.t || '';
+    document.getElementById('tono').value = s.tono || '';
+    document.getElementById('bpm').value = s.bpm || '';
     document.getElementById('check-cols').checked = !!s.cols;
     document.getElementById('check-notas').checked = s.notas !== false;
-    if (s.size) { document.getElementById('font-size-range').value = s.size; this.updateFontSize(s.size); }
+    if (s.size) {
+      document.getElementById('font-size-range').value = s.size;
+      this.updateFontSize(s.size);
+    }
     this.elLista.innerHTML = '';
     this.chordMode = false;
     document.getElementById('btn-chord-mode').textContent = 'Activar';
     document.getElementById('btn-chord-mode').className = 'btn btn-ghost px-3 py-1.5 text-[11px]';
-    (s.secs||[]).forEach(x => this.addSec(x.tipo, x.txt));
+    (s.secs || []).forEach(x => this.addSec(x.tipo, x.txt));
     this.toggleBib(false);
     this.render();
     this.notify('Cargada');
   },
 
   del(k) {
-    if (!confirm('¿Borrar "'+k+'"?')) return;
-    const db = JSON.parse(localStorage.getItem('sw_db_v3')||'{}');
+    if (!confirm('¿Borrar "' + k + '"?')) return;
+    const db = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
     delete db[k];
     localStorage.setItem('sw_db_v3', JSON.stringify(db));
     this.filtrarBib(document.getElementById('search-bib').value);
@@ -892,10 +893,10 @@ const App = {
 
   exportarDB() {
     const db = localStorage.getItem('sw_db_v3');
-    if (!db || db==='{}') return this.notify('Nada que exportar');
+    if (!db || db === '{}') return this.notify('Nada que exportar');
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([db],{type:'application/json'}));
-    a.download = 'backup_IBGSG_'+new Date().toISOString().slice(0,10)+'.json';
+    a.href = URL.createObjectURL(new Blob([db], { type: 'application/json' }));
+    a.download = 'backup_IBGSG_' + new Date().toISOString().slice(0, 10) + '.json';
     a.click();
   },
 
@@ -905,11 +906,13 @@ const App = {
     r.onload = e => {
       try {
         const imp = JSON.parse(e.target.result);
-        const cur = JSON.parse(localStorage.getItem('sw_db_v3')||'{}');
-        localStorage.setItem('sw_db_v3', JSON.stringify({...cur,...imp}));
+        const cur = JSON.parse(localStorage.getItem('sw_db_v3') || '{}');
+        localStorage.setItem('sw_db_v3', JSON.stringify({ ...cur, ...imp }));
         this.notify('Importado');
         this.toggleBib(true);
-      } catch { this.notify('JSON inválido'); }
+      } catch {
+        this.notify('JSON inválido');
+      }
     };
     r.readAsText(input.files[0]);
     input.value = '';
@@ -946,7 +949,7 @@ const App = {
     t.textContent = msg;
     t.classList.add('show');
     clearTimeout(this._t);
-    this._t = setTimeout(() => t.classList.remove('show'), 2400);
+    this._t = setTimeout(() => t.classList.remove('show'), 2200);
   }
 };
 
