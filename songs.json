@@ -399,7 +399,7 @@
     "secs": [
       {
         "tipo": "estrofa",
-        "txt": "[F]   \nAl Cristo vivo sirvo y El en el mundo está,  \n [F]       [A7]       [Dm] \nAunque otros lo negaren, \n   [G7]             [C7] \nyo sé que El vive ya. \n    [F]    \nSu mano tierna veo, su voz consuelo da,  \n    [G7] \nY cuando yo le llamo \n    [C] \nmuy cerca está. "
+        "txt": "[F]   \nAl Cristo vivo sirvo y El en el mundo está,  \n [F]       [A7]       [Dm] \n[F]Aunque [A7]otros lo [Dm]negaren,\n   [G7]             [C7] \nyo sé que El vive ya. \n    [F]    \nSu mano tierna veo, su voz consuelo da,  \n    [G7] \nY cuando yo le llamo \n    [C] \nmuy cerca está. "
       },
       {
         "tipo": "coro",
@@ -411,9 +411,10 @@
       },
       {
         "tipo": "estrofa",
-        "txt": " [F]\nRegocijad, cristianos, hoy himnos entonad;  \n [F]   [A7]   [Dm]\nEternas aleluyas \n   [G7]               [C7]\na Cristo el Rey cantad;\n[F]  \nAyuda y esperanza es del mundo pecador,  \n    [G7]                        [C]\nNo hay otro amante como el Señor."
+        "txt": " [F]\nRegocijad, cristianos, hoy himnos entonad;  \n [F]   [A7]   [Dm]\n[F]Eternas aleluyas\n   [G7]               [C7]\na Cristo el Rey cantad;\n[F]  \nAyuda y esperanza es del mundo pecador,  \n    [G7]                        [C]\nNo hay otro amante como el Señor."
       }
-    ]
+    ],
+    "updated": "2026-10-10T02:04:30.109Z"
   },
   "AL ESTAR AQUI": {
     "t": "AL ESTAR AQUI",
