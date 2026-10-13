@@ -473,40 +473,6 @@
       }
     ]
   },
-  "UN SIERVO PARA TU GLORIA ": {
-    "t": "UN SIERVO PARA TU GLORIA ",
-    "tono": "",
-    "bpm": "",
-    "size": 16,
-    "cols": true,
-    "notas": true,
-    "secs": [
-      {
-        "tipo": "estrofa",
-        "txt": "[C] \nSiendo en forma de Dios,\n                       [F]\nRey de toda la creación\n                 [C]\nDe siervo Se vistió\n[C] \nHasta lo sumo Se humilló \n                           [F]\nsufrió la muerte en sumisión\n                        [C]\nHorrenda muerte en una cruz\n"
-      },
-      {
-        "tipo": "precoro",
-        "txt": "         [G] \nInmenso amor, \n                 [Am]\nLe hizo descender \n         [F]         [C]\na servir al pecador\n               [G]\nGracia sin igual,\n                [Am]\n Cristo demostró \n        [F]           [C]\ndio Su vida a mi favor"
-      },
-      {
-        "tipo": "coro",
-        "txt": "[C]                   [Gm]\nPon en mí la misma mente\n  \nque hubo en Cristo\n[F]                           [C]\nHazme un siervo para Tu gloria\n[C]                   [G]\nTomaré mi cruz, Te seguiré Jesús\n[F]                           [C]\nHazme un siervo para Tu gloria"
-      },
-      {
-        "tipo": "estrofa",
-        "txt": "[C]\nEl soberano e inmortal, \n                     [F]\ncoronado en majestad\n            [C]\nLavando mis pies\n[C]\nInocente de maldad, \n                     [F]\nmas cargó mi iniquidad\n                    [C]\nTomando así mi lugar"
-      },
-      {
-        "tipo": "precoro",
-        "txt": "        [G]                        \nHerido fue por \n              [Am]\nmi transgresión\n       [F]            [C]\ny en silencio padeció\n             [G]           \nPor mi rebelión \n              [Am]\nsangre derramó \n           [F]             [C]\ny por Su muerte vivo yo"
-      },
-      {
-        "tipo": "puente",
-        "txt": "[C] [F] [G] [F] "
-      }
-    ]
-  },
   "UN SIERVO PARA TU GLORIA": {
     "t": "UN SIERVO PARA TU GLORIA",
     "tono": "",
