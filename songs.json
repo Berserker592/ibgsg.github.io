@@ -506,37 +506,5 @@
         "txt": "[C] [F] [G] [F] "
       }
     ]
-  },
-  "Un sier": {
-    "t": "Un sier",
-    "tono": "",
-    "bpm": "",
-    "capo": "",
-    "size": 13,
-    "cols": true,
-    "notas": true,
-    "secs": [
-      {
-        "tipo": "estrofa",
-        "txt": "Siendo en forma de Dios\nRey de toda la creación\nDe siervo Se vistió\nHasta lo sumo Se humilló\nSufrió la muerte en sumisión\nHorrenda muerte en una cruz"
-      },
-      {
-        "tipo": "precoro",
-        "txt": "Inmenso amor, Le hizo descender\nA servir al pecador\nGracia sin igual, Cristo demostró\nDio Su vida a mi favor"
-      },
-      {
-        "tipo": "coro",
-        "txt": "Pon en mí la misma\nMente que hubo en Cristo\nHazme un siervo para Tu gloria\nTomaré mi cruz\nTe seguiré Jesús\nHazme un siervo para Tu gloria"
-      },
-      {
-        "tipo": "estrofa",
-        "txt": "El soberano e inmortal\nCoronado en majestad\nLavando mis pies\nInocente de maldad\nMas cargó mi iniquidad\nTomando así mi lugar"
-      },
-      {
-        "tipo": "precoro",
-        "txt": "Herido fue por mi transgresión\nY en silencio padeció\nPor mi rebelión sangre derramó\nY por Su muerte vivo yo"
-      }
-    ],
-    "updated": "2026-10-13T15:52:29.647Z"
   }
 }
